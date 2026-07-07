@@ -11,7 +11,6 @@
 
     import-tree = {
       url = "github:denful/import-tree";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
