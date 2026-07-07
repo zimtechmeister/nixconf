@@ -1,7 +1,16 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.base = { config, lib, pkgs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.base = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
     # Nix settings
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = ["nix-command" "flakes"];
     nixpkgs.config.allowUnfree = true;
 
     # Bootloader
@@ -49,7 +58,7 @@
     users.users.user = {
       isNormalUser = true;
       description = "Typical PC User";
-      extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+      extraGroups = ["networkmanager" "wheel" "video" "audio"];
       initialPassword = "nixos";
     };
 

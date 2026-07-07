@@ -1,5 +1,14 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.gnome = { config, lib, pkgs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.gnome = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
 

@@ -1,4 +1,8 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosConfigurations.typical-pc = inputs.nixpkgs.lib.nixosSystem {
     modules = [
       ./_hardware.nix
