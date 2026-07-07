@@ -1,20 +1,10 @@
 {
-  self,
-  inputs,
-  ...
-}: {
-  flake.nixosModules.gnome = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.gnome = {pkgs, ...}: {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
 
-    # Enable the GNOME Desktop Environment with Wayland.
+    # Enable the GNOME Desktop Environment
     services.displayManager.gdm.enable = true;
-    services.displayManager.gdm.wayland = true;
     services.desktopManager.gnome.enable = true;
 
     # Configure GNOME Software Suite and related services.
@@ -24,13 +14,8 @@
     environment.systemPackages = with pkgs; [
       gnome-tweaks
       gnome-extension-manager
-      gnome-weather
-      gnome-maps
       gnome-clocks
       gnome-calculator
-      gnome-calendar
-      gnome-music
-      gnome-photos
       nautilus
       evince
       file-roller

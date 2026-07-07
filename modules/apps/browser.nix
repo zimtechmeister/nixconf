@@ -1,14 +1,5 @@
 {
-  self,
-  inputs,
-  ...
-}: {
-  flake.nixosModules.browser = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.browser = {pkgs, ...}: {
     programs.firefox = {
       enable = true;
       policies = {

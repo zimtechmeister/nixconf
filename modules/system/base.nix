@@ -1,14 +1,5 @@
 {
-  self,
-  inputs,
-  ...
-}: {
-  flake.nixosModules.base = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.base = {pkgs, ...}: {
     # Nix settings
     nix.settings.experimental-features = ["nix-command" "flakes"];
     nixpkgs.config.allowUnfree = true;
