@@ -5,16 +5,42 @@
     nixpkgs.config.allowUnfree = true;
 
     # Bootloader
-    boot.loader.systemd-boot.enable = true;
+    boot.loader.limine = {
+      enable = true;
+      package = pkgs.limine-full;
+      secureBoot = {
+        enable = true;
+        sbctl = pkgs.sbctl;
+        autoGenerateKeys = true;
+        autoEnrollKeys = {
+          enable = true;
+        };
+      };
+    };
+    environment.systemPackages = with pkgs; [
+      sbctl
+    ];
     boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.timeout = 5;
 
     # Networking
-    networking.hostName = "typical-pc";
     networking.networkmanager.enable = true;
+    # networking.hostName; declared in host-specific configuration
 
     # Time and Locale
-    time.timeZone = "UTC";
+    time.timeZone = "Europe/Berlin";
     i18n.defaultLocale = "en_US.UTF-8";
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = "de_DE.UTF-8";
+      LC_IDENTIFICATION = "de_DE.UTF-8";
+      LC_MEASUREMENT = "de_DE.UTF-8";
+      LC_MONETARY = "de_DE.UTF-8";
+      LC_NAME = "de_DE.UTF-8";
+      LC_NUMERIC = "de_DE.UTF-8";
+      LC_PAPER = "de_DE.UTF-8";
+      LC_TELEPHONE = "de_DE.UTF-8";
+      LC_TIME = "de_DE.UTF-8";
+    };
 
     # Sound (PipeWire)
     services.pipewire = {
@@ -37,25 +63,17 @@
     services.libinput.enable = true;
 
     # Basic system utilities
-    environment.systemPackages = with pkgs; [
-      git
-      curl
-      wget
-      vim
-      htop
-    ];
-
-    # Define a default user account
-    users.users.user = {
-      isNormalUser = true;
-      description = "Typical PC User";
-      extraGroups = ["networkmanager" "wheel" "video" "audio"];
-      initialPassword = "nixos";
-    };
+    # environment.systemPackages = with pkgs; [
+    #   git
+    #   curl
+    #   wget
+    #   vim
+    #   htop
+    # ];
 
     # Essential firmware
     hardware.enableAllFirmware = true;
 
-    system.stateVersion = "24.11";
+    system.stateVersion = "26.05";
   };
 }

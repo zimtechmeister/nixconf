@@ -12,10 +12,18 @@
     import-tree = {
       url = "github:denful/import-tree";
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} (
-      inputs.import-tree ./modules
-    );
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.disko.flakeModules.default
+        (inputs.import-tree ./modules)
+      ];
+    };
 }
