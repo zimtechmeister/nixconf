@@ -16,8 +16,8 @@
       ./_hardware-configuration.nix
       self.nixosModules.base
       self.nixosModules.gnome
-      self.nixosModules.browser
-      self.nixosModules.default-apps
+      self.nixosModules.base-packages
+      self.nixosModules.desktop-packages
     ];
 
     networking.hostName = "t480";

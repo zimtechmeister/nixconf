@@ -42,35 +42,6 @@
       LC_TIME = "de_DE.UTF-8";
     };
 
-    # Sound (PipeWire)
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
-    security.rtkit.enable = true;
-
-    # Printing / CUPS
-    services.printing.enable = true;
-
-    # Bluetooth
-    hardware.bluetooth.enable = true;
-    hardware.bluetooth.powerOnBoot = true;
-
-    # Touchpad tap-to-click
-    services.libinput.enable = true;
-
-    # Basic system utilities
-    # environment.systemPackages = with pkgs; [
-    #   git
-    #   curl
-    #   wget
-    #   vim
-    #   htop
-    # ];
-
     # Essential firmware
     hardware.enableAllFirmware = true;
 
