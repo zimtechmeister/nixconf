@@ -5,7 +5,7 @@
     lib,
     ...
   }: {
-    packages.nvim = import ./wrapper.nix {
+    packages.nvim = import ./_wrapper.nix {
       inherit pkgs;
       inherit inputs;
     };

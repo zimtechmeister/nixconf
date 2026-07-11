@@ -15,27 +15,20 @@
       self.diskoConfigurations.t480
       ./_hardware-configuration.nix
       self.nixosModules.base
-      self.nixosModules.gnome
       self.nixosModules.base-packages
+      self.nixosModules.users
+      self.nixosModules.gnome
       self.nixosModules.desktop-packages
+      self.nixosModules.bluetooth
     ];
 
     networking.hostName = "t480";
 
-    users.users = {
-      "tim" = {
-        isNormalUser = true;
-        description = "tim";
-        extraGroups = [
-          "networkmanager"
-          "wheel"
-        ];
-        useDefaultShell = true;
-        initialPassword = "nixos"; # TODO: agenix
-      };
-      "root" = {
-        initialPassword = "nixos"; # TODO: agenix
-      };
+    boot.loader.limine = {
+      secureBoot.autoEnrollKeys.extraArgs = [
+        "--microsoft"
+        "--ignore-immutable"
+      ];
     };
   };
 }

@@ -5,6 +5,7 @@
       curl
       wget
       vim
+      helix # TODO: try it
       jq
       htop
       ripgrep

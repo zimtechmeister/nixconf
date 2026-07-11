@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.desktop-packages= {pkgs, ...}: {
+  flake.nixosModules.desktop-packages = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       wl-kbptr
       wl-clipboard
@@ -10,7 +10,7 @@
       pavucontrol
       easyeffects
 
-      self.packages.${pkgs.stdenv.hostPlatform.system}.helium # TODO: not required here
+      # self.packages.${pkgs.stdenv.hostPlatform.system}.helium # TODO: how do i install it the correct way?
 
       discord
       thunderbird
@@ -36,6 +36,8 @@
 
       # t3code # TODO: pnpm vuln
       vicinae
+
+      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
     # Sound (PipeWire)
     services.pipewire = {
