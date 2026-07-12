@@ -47,7 +47,9 @@
       systems = ["x86_64-linux"];
       imports = [
         inputs.disko.flakeModules.default
-        (inputs.import-tree.filterNot (path: baseNameOf path == "flake.nix") ./.)
+        (inputs.import-tree ./modules)
+        (inputs.import-tree ./extra)
+        (inputs.import-tree ./pkgs)
       ];
     };
 }
