@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.nixosModules.desktop-packages = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       wl-kbptr
@@ -10,7 +10,7 @@
       pavucontrol
       easyeffects
 
-      # self.packages.${pkgs.stdenv.hostPlatform.system}.helium # TODO: how do i install it the correct way?
+      self.packages.${pkgs.stdenv.hostPlatform.system}.helium
 
       discord
       thunderbird
@@ -29,7 +29,7 @@
       zotero
       anki-bin
 
-      # usefulltools
+      # useful tools
       switcheroo
       pandoc
       imagemagick

@@ -91,13 +91,10 @@
 
   # Replicate the project's robust plugin directory structure
   # This avoids manual runtimepath management in Lua
-  packDir = pkgs.runCommand "nvim-pack-dir" {} ''
-    mkdir -p $out/pack/nvim/start
-    ${pkgs.lib.concatMapStringsSep "\n" (plugin: ''
-        ln -s ${plugin} $out/pack/nvim/start/${pkgs.lib.getName plugin}
-      '')
-      plugins}
-  '';
+  packDir = pkgs.linkFarm "nvim-pack-dir" (map (plugin: {
+    name = "pack/nvim/start/${pkgs.lib.getName plugin}";
+    path = plugin;
+  }) plugins);
   # Create a self-contained environment using symlinkJoin
   # This is cleaner than buildEnv + manual 'rm bin/nvim'
 in
@@ -113,8 +110,8 @@ in
       wrapProgram $out/bin/nvim \
         --add-flags '-u ${./lua/init.lua}' \
         --add-flags "--cmd 'set packpath^=${packDir} | set runtimepath^=${./lua},${packDir}'" \
-        --prefix PATH : "$out/bin" \
-        --set VUE_TS_PLUGIN_PATH "${pkgs.vue-language-server}/lib/language-tools/packages/language-server"
+        --prefix PATH : "$out/bin"
+        # --set VUE_TS_PLUGIN_PATH "${pkgs.vue-language-server}/lib/language-tools/packages/language-server"
 
       # Robust aliasing
       ln -sf $out/bin/nvim $out/bin/vi
