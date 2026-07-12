@@ -46,6 +46,7 @@
         inputs.disko.flakeModules.default
         (inputs.import-tree ./modules)
         (inputs.import-tree ./pkgs)
+        (inputs.import-tree ./extra)
       ];
     };
 }
