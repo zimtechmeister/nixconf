@@ -16,6 +16,7 @@
       ./_hardware-configuration.nix
       self.nixosModules.base
       self.nixosModules.base-packages
+      self.nixosModules.plymouth
       self.nixosModules.users
       self.nixosModules.gnome
       self.nixosModules.desktop-packages
