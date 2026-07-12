@@ -9,12 +9,15 @@
     ];
   };
 
+  # TODO: combine modules
   flake.nixosModules.hostMain = {
     imports = [
       ./_hardware-configuration.nix
       self.nixosModules.base
       self.nixosModules.base-packages
       self.nixosModules.plymouth
+      self.nixosModules.secrets
+      self.nixosModules.ssh
       self.nixosModules.users
       self.nixosModules.hyprland
       self.nixosModules.desktop-packages

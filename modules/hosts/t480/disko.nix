@@ -38,7 +38,7 @@
       bcachefs_filesystems = {
         pool = {
           type = "bcachefs_filesystem";
-          # passwordFile = config.age.secrets.disk-encryption.path; # TODO: agenix
+          passwordFile = config.age.secrets.disk-encryption.path;
           extraFormatArgs = [
             "--compression=zstd"
             "--background_compression=zstd"

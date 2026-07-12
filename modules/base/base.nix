@@ -1,5 +1,9 @@
-{
+{ self, ... }: {
   flake.nixosModules.base = {pkgs, ...}: {
+    imports = [
+      self.nixosModules.secrets
+    ];
+
     # Nix settings
     nix.settings.experimental-features = ["nix-command" "flakes"];
     nixpkgs.config.allowUnfree = true;

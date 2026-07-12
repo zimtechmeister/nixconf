@@ -1,6 +1,4 @@
 {
-  description = "A modular NixOS configuration for a typical PC user using the Dendritic Pattern";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -11,6 +9,11 @@
 
     import-tree = {
       url = "github:denful/import-tree";
+    };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
@@ -44,9 +47,7 @@
       systems = ["x86_64-linux"];
       imports = [
         inputs.disko.flakeModules.default
-        (inputs.import-tree ./modules)
-        (inputs.import-tree ./pkgs)
-        (inputs.import-tree ./extra)
+        (inputs.import-tree.filterNot (path: baseNameOf path == "flake.nix") ./.)
       ];
     };
 }

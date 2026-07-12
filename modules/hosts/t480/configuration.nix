@@ -17,6 +17,8 @@
       self.nixosModules.base
       self.nixosModules.base-packages
       self.nixosModules.plymouth
+      self.nixosModules.secrets
+      self.nixosModules.ssh
       self.nixosModules.users
       self.nixosModules.gnome
       self.nixosModules.desktop-packages
