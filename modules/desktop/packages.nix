@@ -35,9 +35,6 @@
       imagemagick
 
       # t3code # TODO: pnpm vuln
-      vicinae
-
-      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
     # Sound (PipeWire)
     services.pipewire = {

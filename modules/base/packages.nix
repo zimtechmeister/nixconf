@@ -1,4 +1,4 @@
-{
+{inputs, ...}: {
   flake.nixosModules.base-packages = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       git

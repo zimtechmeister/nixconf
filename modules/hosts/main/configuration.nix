@@ -15,7 +15,7 @@
       self.nixosModules.base
       self.nixosModules.base-packages
       self.nixosModules.users
-      self.nixosModules.gnome
+      self.nixosModules.hyprland
       self.nixosModules.desktop-packages
     ];
 
