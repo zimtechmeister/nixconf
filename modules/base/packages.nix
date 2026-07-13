@@ -1,9 +1,14 @@
-{inputs, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosModules.base-packages = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       git
       curl
       wget
+      self.packages.${pkgs.stdenv.hostPlatform.system}.nvim
       vim
       helix # TODO: try it
       jq
