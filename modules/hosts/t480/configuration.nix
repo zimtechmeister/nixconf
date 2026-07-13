@@ -16,7 +16,6 @@
       ./_hardware-configuration.nix
 
       self.nixosModules.base
-
       self.nixosModules.default-desktop
 
       self.nixosModules.bluetooth

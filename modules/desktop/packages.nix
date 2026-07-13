@@ -33,8 +33,6 @@
       switcheroo
       pandoc
       imagemagick
-
-      # t3code # TODO: pnpm vuln
     ];
     # Sound (PipeWire)
     services.pipewire = {

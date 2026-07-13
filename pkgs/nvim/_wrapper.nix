@@ -61,10 +61,10 @@
     nil # nix
     alejandra # nix formatter
     tinymist #typst
-    # vue-language-server # TODO: pnpm vuln
+    # vue-language-server
     # vscode-langservers-extracted # eslint
-    # vtsls # vue-ts-plugin # TODO: pnpm vuln
-    # tailwindcss-language-server # TODO: pnpm vuln
+    # vtsls # vue-ts-plugin
+    # tailwindcss-language-server
 
     # --- language specific tools ---
     #rust

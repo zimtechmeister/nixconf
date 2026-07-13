@@ -10,7 +10,7 @@
       wget
       self.packages.${pkgs.stdenv.hostPlatform.system}.nvim
       vim
-      helix # TODO: try it
+      helix
       jq
       htop
       ripgrep
@@ -38,7 +38,7 @@
       openvpn
       pass
 
-      yt-dlp # TODO: pnpm vuln
+      yt-dlp
       antigravity-cli
 
       inputs.nix-alien.packages.${pkgs.stdenv.hostPlatform.system}.nix-alien
