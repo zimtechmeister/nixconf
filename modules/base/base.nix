@@ -1,5 +1,5 @@
 { self, ... }: {
-  flake.nixosModules.base = {pkgs, ...}: {
+  flake.nixosModules.base-core = {pkgs, ...}: {
     imports = [
       self.nixosModules.secrets
     ];

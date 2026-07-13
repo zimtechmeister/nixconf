@@ -1,6 +1,6 @@
 {
-  flake.nixosModules.ssh = {lib, ...}: {
-    programs.ssh.startAgent = lib.mkDefault true;
+  flake.nixosModules.ssh = {
+    programs.ssh.startAgent = true;
     services.fail2ban = {
       enable = true;
     };
