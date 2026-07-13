@@ -9,20 +9,15 @@
     ];
   };
 
-  # TODO: combine modules
   flake.nixosModules.hostMain = {
     imports = [
       ./_hardware-configuration.nix
 
       self.nixosModules.base
-
-      self.nixosModules.fonts
-      self.nixosModules.hyprland
-      self.nixosModules.localsend
-      self.nixosModules.desktop-packages
-      self.nixosModules.virt-manager
+      self.nixosModules.default-desktop
 
       self.nixosModules.gaming
+      self.nixosModules.virt-manager
     ];
 
     networking.hostName = "main";

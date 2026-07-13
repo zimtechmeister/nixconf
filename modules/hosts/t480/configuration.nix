@@ -17,10 +17,7 @@
 
       self.nixosModules.base
 
-      self.nixosModules.fonts
-      self.nixosModules.gnome
-      self.nixosModules.localsend
-      self.nixosModules.desktop-packages
+      self.nixosModules.default-desktop
 
       self.nixosModules.bluetooth
       self.nixosModules.kanata
