@@ -1,7 +1,7 @@
 local nix = require("nix")
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd(nix.noctalia_shell)
+    hl.exec_cmd(nix.noctalia_shell) -- TODO: remove start as systemd service care for vicinae too?
     hl.exec_cmd(nix.vicinae .. "server")
 end)
 

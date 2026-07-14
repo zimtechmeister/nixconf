@@ -18,6 +18,8 @@
 
       self.nixosModules.gaming
       self.nixosModules.virt-manager
+
+      self.nixosModules.home-manager
     ];
 
     networking.hostName = "main";

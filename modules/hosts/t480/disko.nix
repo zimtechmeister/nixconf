@@ -18,6 +18,30 @@
                 mountOptions = ["umask=0077"]; # security measurements only root can edit /boot
               };
             };
+            luks = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "crypted";
+                settings = {
+                  allowDiscards = true;
+                  # if you want to use the key for interactive login be sure there is no trailing newline
+                  # for example use `echo -n "password" > /tmp/secret.key`
+                  # keyFile = "/tmp/secret.key"; # if not set, the user will be prompted to set a password during installation
+                };
+                content = {
+                  type = "lvm_pv";
+                  vg = "pool";
+                };
+              };
+            };
+          };
+        };
+      };
+      lvm_vg = {
+        pool = {
+          type = "lvm_vg";
+          lvs = {
             swap = {
               size = "16G";
               content = {
@@ -25,32 +49,22 @@
                 resumeDevice = true;
               };
             };
-            bcachefs = {
-              size = "100%";
+            root = {
+              size = "100%FREE"; # Uses all remaining space in the LVM Volume Group
               content = {
-                type = "bcachefs";
-                filesystem = "pool";
+                type = "btrfs";
+                extraArgs = ["-f"];
+                subvolumes = {
+                  "/root" = {
+                    mountpoint = "/";
+                    mountOptions = ["compress=zstd" "noatime"];
+                  };
+                  "/home" = {
+                    mountpoint = "/home";
+                    mountOptions = ["compress=zstd" "noatime"];
+                  };
+                };
               };
-            };
-          };
-        };
-      };
-      bcachefs_filesystems = {
-        pool = {
-          type = "bcachefs_filesystem";
-          passwordFile = config.age.secrets.disk-encryption.path;
-          extraFormatArgs = [
-            "--compression=zstd"
-            "--background_compression=zstd"
-          ];
-          subvolumes = {
-            "subvolumes/root" = {
-              mountpoint = "/";
-              mountOptions = ["noatime"];
-            };
-            "subvolumes/home" = {
-              mountpoint = "/home";
-              mountOptions = ["noatime"];
             };
           };
         };

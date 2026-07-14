@@ -13,6 +13,7 @@
       self.nixosModules.television
       self.nixosModules.users
       self.nixosModules.zram
+      self.nixosModules.stylix
     ];
   };
 }

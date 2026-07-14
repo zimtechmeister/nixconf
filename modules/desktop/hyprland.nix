@@ -14,8 +14,10 @@
     environment.systemPackages = with pkgs; [
       hyprpicker
       nwg-displays
-      ghostty
       inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+      ghostty # should not be here
+      vicinae # this too
     ];
   };
 }
