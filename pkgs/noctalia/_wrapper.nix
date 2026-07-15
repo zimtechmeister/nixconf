@@ -3,10 +3,24 @@
   inputs,
   ...
 }: let
-  configDir = pkgs.linkFarm "noctalia-config" [
+  wallpaper = pkgs.fetchurl {
+    url = "https://w.wallhaven.cc/full/qr/wallhaven-qrr21r.png";
+    hash = "sha256-P/dy3Oiup0UC+ApPI+HBlJEYQ9w/gATlHX1FKnNZb08=";
+  };
+
+  configFile = pkgs.runCommand "settings.toml" {} ''
+    cat ${./settings.toml} > $out
+    cat <<EOF >> $out
+
+    [wallpaper.default]
+    path = "${wallpaper}"
+    EOF
+  '';
+
+  configDir = pkgs.linkFarm "settings" [
     {
-      name = "noctalia-config.toml";
-      path = ./noctalia-config.toml;
+      name = "noctalia/settings.toml";
+      path = configFile;
     }
   ];
 in
@@ -21,7 +35,7 @@ in
 
     postBuild = ''
       wrapProgram $out/bin/noctalia \
-        --set NOCTALIA_CONFIG_DIR "${configDir}" \
+        --set NOCTALIA_CONFIG_HOME "${configDir}" \
         --prefix PATH : "$out/bin"
     '';
 

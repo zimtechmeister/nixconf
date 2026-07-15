@@ -1,8 +1,8 @@
 local nix = require("nix")
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd(nix.noctalia_shell) -- TODO: remove start as systemd service care for vicinae too?
-    hl.exec_cmd(nix.vicinae .. "server")
+    hl.exec_cmd(nix.noctalia)
+    hl.exec_cmd(nix.vicinae .. " server")
 end)
 
 local focus_left = function()
@@ -75,14 +75,12 @@ hl.bind("SUPER + Return", hl.dsp.exec_cmd(nix.ghostty))
 
 hl.bind("SUPER + S", hl.dsp.exec_cmd(nix.screenshot))
 
-hl.bind("SUPER + Space", hl.dsp.exec_cmd(nix.vicinae .. "toggle"))
-hl.bind("SUPER + V", hl.dsp.exec_cmd(nix.vicinae .. "vicinae://launch/clipboard/history"))
+hl.bind("SUPER + Space", hl.dsp.exec_cmd(nix.vicinae .. " toggle"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd(nix.vicinae .. " vicinae://launch/clipboard/history"))
 
--- hl.bind("SUPER + Space", hl.dsp.exec_cmd(nix.noctalia_shell .. " ipc call launcher toggle"))
--- hl.bind("SUPER + V", hl.dsp.exec_cmd(nix.noctalia_shell .. " ipc call launcher clipboard"))
-hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd(nix.noctalia_shell .. " ipc call bar toggle"))
-hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd(nix.noctalia_shell .. " ipc call volume muteInput"))
-hl.bind("switch:[Lid Switch]", hl.dsp.exec_cmd(nix.noctalia_shell .. " ipc call sessionMenu lockAndSuspend"),
+hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd(nix.noctalia .. " msg bar-toggle"))
+hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd(nix.noctalia .. " msg mic-mute"))
+hl.bind("switch:[Lid Switch]", hl.dsp.exec_cmd(nix.noctalia .. " msg session lock-and-suspend"),
     { locked = true })
 
 

@@ -19,7 +19,7 @@
       };
     };
     environment.sessionVariables = {
-      NH_FLAKE = "/home/tim/flocke";
+      NH_FLAKE = "/home/tim/nixconf";
     };
     nix = {
       gc = {

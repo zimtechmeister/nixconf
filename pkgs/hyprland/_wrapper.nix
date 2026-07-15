@@ -49,7 +49,7 @@
   in
     pkgs.writeText "nix.lua" ''
       return {
-        noctalia_shell = "${lib.getExe noctalia}",
+        noctalia = "${lib.getExe noctalia}",
         vicinae = "${lib.getExe pkgs.vicinae}",
         ghostty = "${lib.getExe pkgs.ghostty}",
         screenshot = "${screenshot}",

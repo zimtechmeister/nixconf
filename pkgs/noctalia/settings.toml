@@ -108,9 +108,6 @@ community_palette = "Oxocarbon"
 mode = "dark"
 source = "builtin"
 
-[wallpaper.default]
-path = "/home/tim/Pictures/Wallpapers/eva01.png"
-
 [widget.network]
 show_label = false
 
