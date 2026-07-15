@@ -1,6 +1,7 @@
 [bar.default]
+margin_ends = 400
 center = [ "group:g2" ]
-end = [ "launcher", "clipboard", "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
+end = [ "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
 start = [ "workspaces" ]
 
     [[bar.default.capsule_group]]
@@ -120,6 +121,10 @@ builtin = "Gruvbox"
 community_palette = "Oxocarbon"
 mode = "dark"
 source = "builtin"
+
+    [theme.templates]
+    enable_builtin_templates = false
+    enable_community_templates = false
 
 [widget.network]
 show_label = false

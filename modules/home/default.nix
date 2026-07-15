@@ -7,7 +7,6 @@
     home = {
       username = "tim";
       homeDirectory = "/home/tim";
-      pointerCursor.enable = true; # TODO: whats this?
 
       stateVersion = "26.05";
     };
