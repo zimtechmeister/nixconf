@@ -31,11 +31,12 @@
 
     # colorschemes
     gruvbox-nvim
+    lackluster-nvim
+    oxocarbon-nvim
     # vim-moonfly-colors
     # vague-nvim
     # catppuccin-nvim
     # tokyonight-nvim
-    # oxocarbon-nvim
     # everforest # sainnhe's version
     # (pkgs.vimUtils.buildVimPlugin {
     #   name = "everforest-nvim";

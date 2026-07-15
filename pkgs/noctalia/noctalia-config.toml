@@ -1,0 +1,118 @@
+[bar.default]
+center = [ "group:g2" ]
+end = [ "launcher", "clipboard", "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
+start = [ "workspaces" ]
+
+    [[bar.default.capsule_group]]
+    enabled = true
+    fill = "surface_variant"
+    id = "g2"
+    members = [ "clock", "date" ]
+    opacity = 1.0
+    padding = 6.0
+
+    [[bar.default.capsule_group]]
+    enabled = true
+    fill = "surface_variant"
+    id = "g3"
+    members = [ "cpu", "battery" ]
+    opacity = 1.0
+    padding = 6.0
+
+    [[bar.default.capsule_group]]
+    enabled = true
+    fill = "surface_variant"
+    id = "g4"
+    members = [ "network", "bluetooth" ]
+    opacity = 1.0
+    padding = 6.0
+
+[battery]
+warning_threshold = 20
+
+[calendar]
+enabled = true
+refresh_minutes = 5
+
+    [calendar.account.b7a4e4779b5a651abf6070275823e79b8ab6f1807cdd05b6ad6167a9b34df745]
+    type = "google"
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+pre_action_fade_seconds = 5
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 660.0
+
+[location]
+address = "Butzbach, Germany"
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 961.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_password_hint = true
+
+[nightlight]
+enabled = true
+
+[osd]
+orientation = "vertical"
+position_vertical = "center_right"
+
+[shell]
+launch_apps_as_systemd_services = true
+polkit_agent = true
+screen_time_enabled = true
+
+[theme]
+builtin = "Gruvbox"
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "builtin"
+
+[wallpaper.default]
+path = "/home/tim/Pictures/Wallpapers/eva01.png"
+
+[widget.network]
+show_label = false
+
+[widget.tray]
+drawer = true

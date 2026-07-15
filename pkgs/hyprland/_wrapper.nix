@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   theme ? null,
+  noctalia,
   ...
 }: let
   # Generate theme.lua
@@ -48,7 +49,7 @@
   in
     pkgs.writeText "nix.lua" ''
       return {
-        noctalia_shell = "${lib.getExe inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}",
+        noctalia_shell = "${lib.getExe noctalia}",
         vicinae = "${lib.getExe pkgs.vicinae}",
         ghostty = "${lib.getExe pkgs.ghostty}",
         screenshot = "${screenshot}",
