@@ -1,12 +1,8 @@
 { self, ... }: {
-  flake.nixosModules.base-core = {pkgs, ...}: {
+  flake.nixosModules.system = {pkgs, ...}: {
     imports = [
       self.nixosModules.secrets
     ];
-
-    # Nix settings
-    nix.settings.experimental-features = ["nix-command" "flakes"];
-    nixpkgs.config.allowUnfree = true;
 
     # Bootloader
     boot.loader.limine = {

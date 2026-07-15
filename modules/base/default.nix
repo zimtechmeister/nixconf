@@ -1,8 +1,7 @@
 {self, ...}: {
   flake.nixosModules.base = {
     imports = [
-      self.nixosModules.base-core
-      self.nixosModules.cachix
+      self.nixosModules.system
       self.nixosModules.fwupd
       self.nixosModules.nix
       self.nixosModules.base-packages

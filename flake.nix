@@ -35,11 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-alien = {
-      url = "github:thiagokokada/nix-alien";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland = {
       url = "github:hyprwm/Hyprland";
       # inputs.nixpkgs.follows = "nixpkgs";
@@ -81,8 +76,6 @@
         inputs.disko.flakeModules.default
         inputs.home-manager.flakeModules.home-manager
         (inputs.import-tree ./modules)
-        (inputs.import-tree ./extra)
-        (inputs.import-tree ./pkgs)
       ];
     };
 }

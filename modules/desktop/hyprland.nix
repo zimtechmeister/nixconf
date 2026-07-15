@@ -30,5 +30,8 @@
       ghostty # should not be here
       vicinae # this too
     ];
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
   };
 }

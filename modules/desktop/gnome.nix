@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.gnome = {lib, pkgs, ...}: {
+  flake.nixosModules.gnome = {
+    lib,
+    pkgs,
+    ...
+  }: {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
 
@@ -21,6 +25,9 @@
       file-roller
       seahorse
     ];
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
 
     programs.ssh.startAgent = lib.mkForce false;
   };

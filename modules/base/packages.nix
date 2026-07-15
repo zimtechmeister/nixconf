@@ -1,8 +1,4 @@
-{
-  self,
-  inputs,
-  ...
-}: {
+{self, ...}: {
   flake.nixosModules.base-packages = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       git
@@ -41,8 +37,6 @@
       yt-dlp
       antigravity-cli
 
-      inputs.nix-alien.packages.${pkgs.stdenv.hostPlatform.system}.nix-alien
-
       # Languages
       openjdk25
       rlwrap
@@ -66,6 +60,11 @@
       rustc
       cargo
     ];
+    environment.sessionVariables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
+
     virtualisation.docker.enable = true;
   };
 }
