@@ -1,8 +1,8 @@
 local nix = require("nix")
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd(nix.noctalia)
-    hl.exec_cmd(nix.vicinae .. " server")
+    hl.exec_cmd(nix.noctalia) -- TODO: can be started as systemd service but hyprland should then also be started with uwsm
+    hl.exec_cmd(nix.vicinae .. " server") -- TODO: can be started as systemd service but hyprland should then also be started with uwsm
 end)
 
 local focus_left = function()
