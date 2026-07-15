@@ -8,8 +8,10 @@
       fi
     '';
   in {
-    programs.fish.loginShellInit = ''
-      ${autostart-hyprland}
+    xdg.configFile."fish/conf.d/autostart.fish".text = ''
+      if status is-login
+        ${autostart-hyprland}
+      end
     '';
   };
 }

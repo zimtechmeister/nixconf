@@ -1,14 +1,18 @@
 {inputs, ...}: {
   flake.nixosModules.nix = {
+    imports = [
+      inputs.nix-index-database.nixosModules.default
+    ];
+
     # this is for the nixd lsp to get the pkgs from the flake if im correct?
     nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
     programs = {
-      # nix-index = {
-      #   enable = true;
-      #   enableFishIntegration = true;
-      # };
-      # nix-index-database.comma.enable = true;
+      nix-index = {
+        enable = true;
+        enableFishIntegration = true;
+      };
+      nix-index-database.comma.enable = true;
       nh = {
         enable = true;
         # clean = {

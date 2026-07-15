@@ -2,7 +2,6 @@
   flake.homeModules.general = {
     imports = [
       self.homeModules.fastfetch
-      self.homeModules.fish
       self.homeModules.git
       self.homeModules.jujutsu
       self.homeModules.lsd
