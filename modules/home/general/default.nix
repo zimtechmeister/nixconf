@@ -10,7 +10,6 @@
       self.homeModules.nushell
       self.homeModules.ssh
       self.homeModules.starship
-      self.homeModules.tmux
       self.homeModules.yazi
       self.homeModules.zoxide
     ];

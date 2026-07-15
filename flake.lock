@@ -166,28 +166,6 @@
         "type": "github"
       }
     },
-    "firefox-addons": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "pkgs/firefox-addons",
-        "lastModified": 1784088137,
-        "narHash": "sha256-O8U59ySH+3kZ9Lh7eHAnnWI6RNgzFQGYJsJXdBCxv+Y=",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "rev": "1ee999f417cbac9e21e104eb6555a9e8bed55657",
-        "type": "gitlab"
-      },
-      "original": {
-        "dir": "pkgs/firefox-addons",
-        "owner": "rycee",
-        "repo": "nur-expressions",
-        "type": "gitlab"
-      }
-    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -690,26 +668,6 @@
         "type": "github"
       }
     },
-    "minimal-tmux": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1783536435,
-        "narHash": "sha256-O5pESDP8kG9XWb6j1/nXhZvFJnXkH22mSl+Ubtuo2l8=",
-        "owner": "niksingh710",
-        "repo": "minimal-tmux-status",
-        "rev": "fa0d24c9454b831b5f482aae01464d4ccd0292dc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "niksingh710",
-        "repo": "minimal-tmux-status",
-        "type": "github"
-      }
-    },
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -898,18 +856,15 @@
       "inputs": {
         "agenix": "agenix",
         "disko": "disko",
-        "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
         "import-tree": "import-tree",
-        "minimal-tmux": "minimal-tmux",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
-        "stylix": "stylix",
-        "zen-browser": "zen-browser"
+        "stylix": "stylix"
       }
     },
     "stylix": {
@@ -1090,29 +1045,6 @@
       "original": {
         "owner": "hyprwm",
         "repo": "xdg-desktop-portal-hyprland",
-        "type": "github"
-      }
-    },
-    "zen-browser": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1784140961,
-        "narHash": "sha256-jG6ZDco1zQTxIUAVw7Gc+m71pX4q/It7fiso1ozLFlI=",
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "rev": "8f3cc4017a7bf96eb2e143597d474112433b4878",
-        "type": "github"
-      },
-      "original": {
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

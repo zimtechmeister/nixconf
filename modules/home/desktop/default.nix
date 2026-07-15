@@ -6,9 +6,7 @@
       self.homeModules.gtk-styling
       self.homeModules.hyprpolkitagent
       self.homeModules.mimeApps
-      # self.homeModules.noctalia
       self.homeModules.vesktop
-      # self.homeModules.zen-browser
     ];
   };
 }

@@ -11,6 +11,7 @@
       easyeffects
 
       self.packages.${pkgs.stdenv.hostPlatform.system}.helium
+      firefox
 
       discord
       thunderbird
