@@ -1,18 +1,21 @@
 {
   self,
   inputs,
+  withSystem,
   ...
 }: {
-  flake.homeConfigurations."tim" = inputs.home-manager.lib.homeManagerConfiguration {
-    pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-    extraSpecialArgs = {inherit inputs self;};
-    modules = [
-      self.homeModules.default
-      self.homeModules.desktop
-      inputs.stylix.homeModules.stylix
-      self.homeModules.stylix
-    ];
-  };
+  flake.homeConfigurations."tim" = withSystem "x86_64-linux" ({pkgs, ...}:
+    inputs.home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      extraSpecialArgs = {inherit inputs self;};
+      modules = [
+        self.homeModules.default
+        self.homeModules.desktop
+        inputs.stylix.homeModules.stylix
+        self.homeModules.stylix
+      ];
+    }
+  );
 
   flake.nixosModules.home-manager = {
     imports = [
