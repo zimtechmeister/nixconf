@@ -1,5 +1,6 @@
+# TODO: does not work dont know how to implement maybe use a display manager
 { self, ... }: {
-  flake.homeModules.autostart-hyprland = { lib, config, pkgs, ... }: let
+  flake.homeModules.autostart-hyprland = { lib, pkgs, ... }: let
     start-hyprland = lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     autostart-hyprland = pkgs.writeShellScript "autostart-hyprland" ''
       # if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then

@@ -1,14 +1,11 @@
-{inputs, ...}: {
+{
   perSystem = {
     pkgs,
     self',
     lib,
     ...
   }: {
-    packages.fish = import ./_wrapper.nix {
-      inherit pkgs;
-      inherit inputs;
-    };
+    packages.fish = pkgs.callPackage ./_wrapper.nix {};
     apps.fish = {
       type = "app";
       program = lib.getExe self'.packages.fish;
