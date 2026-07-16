@@ -12,7 +12,7 @@
           lsd
           lazygit
           carapace
-          starship
+          self'.packages.starship
           zoxide
           yazi
         ];

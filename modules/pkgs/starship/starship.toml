@@ -1,0 +1,39 @@
+follow_symlinks = false
+format = """
+$fill$directory $username[@](green)$hostname
+$character"""
+right_format = ""
+scan_timeout = 10
+
+[character]
+error_symbol = "[➜](white)"
+success_symbol = "[➜](white)"
+vimcmd_replace_one_symbol = "[](red)"
+vimcmd_replace_symbol = "[](red)"
+vimcmd_symbol = "[](green)"
+vimcmd_visual_symbol = "[](purple)"
+
+[directory]
+format = "[$read_only]($read_only_style)[$path]($style)"
+read_only = ""
+read_only_style = "red"
+style = "green"
+truncate_to_repo = true
+truncation_length = 4
+truncation_symbol = ""
+
+[fill]
+style = "underline green"
+symbol = " "
+
+[hostname]
+format = "[$hostname]($style)"
+ssh_only = false
+style = "white"
+trim_at = "."
+
+[username]
+format = "[$user]($style)"
+show_always = true
+style_root = "red"
+style_user = "white"

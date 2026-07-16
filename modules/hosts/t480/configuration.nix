@@ -21,8 +21,6 @@
       self.nixosModules.bluetooth
       self.nixosModules.kanata
       self.nixosModules.notebook-power
-
-      self.nixosModules.home-manager
     ];
 
     networking.hostName = "t480";

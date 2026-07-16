@@ -6,6 +6,8 @@
       cliphist
       wev
 
+      ghostty
+
       pulsemixer
       pavucontrol
       easyeffects

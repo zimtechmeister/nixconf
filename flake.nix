@@ -16,11 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,7 +51,6 @@
       systems = ["x86_64-linux"];
       imports = [
         inputs.disko.flakeModules.default
-        inputs.home-manager.flakeModules.home-manager
         (inputs.import-tree ./modules)
       ];
     };
