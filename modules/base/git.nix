@@ -1,8 +1,8 @@
-{ ... }: {
-  flake.homeModules.git = { lib, config, ... }: {
+{
+  flake.nixosModules.git = {
     programs.git = {
       enable = true;
-      settings = {
+      config = {
         user = {
           name = "Tim Zechmeister";
           email = "tim.zechmeister03@gmail.com";

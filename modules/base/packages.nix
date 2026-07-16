@@ -1,13 +1,15 @@
 {self, ...}: {
   flake.nixosModules.base-packages = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
-      git
+      jujutsu # TODO: module
       curl
       wget
       self.packages.${pkgs.stdenv.hostPlatform.system}.nvim
       vim
       helix
       jq
+      lsd
+      yazi # TODO: maybe nixosmodule
       htop
       ripgrep
       less
