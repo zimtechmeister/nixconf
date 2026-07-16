@@ -37,9 +37,9 @@
       ];
       nativeBuildInputs = [pkgs.makeWrapper];
       postBuild = ''
-        rm $out/bin/ghostty
-        makeWrapper ${pkgs.ghostty}/bin/ghostty $out/bin/ghostty \
-          --add-flags "--config-file=${./config}"
+        wrapProgram $out/bin/ghostty \
+          --add-flags "--config-file=${./config}" \
+          --prefix PATH : "$out/bin"
       '';
       meta.mainProgram = "ghostty";
     };
