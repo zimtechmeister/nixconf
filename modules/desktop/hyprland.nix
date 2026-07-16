@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.hyprland = {pkgs, ...}: {
+  flake.nixosModules.hyprland = {pkgs, lib, ...}: {
     imports = [
       inputs.noctalia.nixosModules.default
     ];
@@ -24,13 +24,28 @@
     environment.systemPackages = with pkgs; [
       rtkit
 
+      phinger-cursors
+
       hyprpicker
       nwg-displays
 
-      vicinae # this too
+      vicinae
     ];
-    environment.sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-    };
+
+    # Enable dconf system-wide and configure interface preferences
+    programs.dconf.enable = true;
+    programs.dconf.profiles.user.databases = [
+      {
+        settings = {
+          "org/gnome/desktop/interface" = {
+            cursor-theme = "phinger-cursors-dark";
+            cursor-size = lib.gvariant.mkInt32 24;
+          };
+          "org/gnome/desktop/wm/preferences" = {
+            button-layout = ":";
+          };
+        };
+      }
+    ];
   };
 }

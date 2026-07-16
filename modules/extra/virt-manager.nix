@@ -9,7 +9,7 @@
         swtpm.enable = true; # Software-TPM-emulator
       };
     };
-    programs.dconf.enable = true;
+    # programs.dconf.enable = true; # already set elsewhere dont know if i even need this here?
     virtualisation.spiceUSBRedirection.enable = true;
     services.spice-vdagentd.enable = true;
     networking.firewall.checkReversePath = false;

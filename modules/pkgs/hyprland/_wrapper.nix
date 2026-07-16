@@ -5,6 +5,7 @@
   theme ? null,
   noctalia,
   ghostty,
+  cursor ? null,
   ...
 }: let
   # Generate theme.lua
@@ -54,6 +55,12 @@
         vicinae = "${lib.getExe pkgs.vicinae}",
         ghostty = "${lib.getExe ghostty}",
         screenshot = "${screenshot}",
+        ${lib.optionalString (cursor != null) ''
+        cursor = {
+          name = "${cursor.name}",
+          size = ${toString cursor.size},
+        },
+      ''}
       }
     '';
   # Create a directory for the config files
@@ -73,14 +80,15 @@
       ])
     ];
   };
-
 in
   pkgs.symlinkJoin {
     name = "hyprland";
     inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland) version;
-    paths = [
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
-    ];
+    paths =
+      [
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+      ]
+      ++ lib.optional (cursor != null) cursor.package;
 
     nativeBuildInputs = [pkgs.makeWrapper];
 
