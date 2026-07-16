@@ -119,8 +119,9 @@ screen_time_enabled = true
 [theme]
 builtin = "Gruvbox"
 community_palette = "Oxocarbon"
+custom_palette = "nix"
 mode = "dark"
-source = "builtin"
+source = "custom"
 
     [theme.templates]
     enable_builtin_templates = false

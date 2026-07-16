@@ -1,4 +1,5 @@
 {inputs, ...}: let
+  # more themes can be found at https://tinted-theming.github.io/tinted-gallery/
   colors = {
     base00 = "#282828";
     base01 = "#3c3836";
