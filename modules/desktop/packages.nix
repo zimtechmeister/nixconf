@@ -6,7 +6,7 @@
       cliphist
       wev
 
-      ghostty
+      self.packages.${pkgs.stdenv.hostPlatform.system}.ghostty
 
       pulsemixer
       pavucontrol

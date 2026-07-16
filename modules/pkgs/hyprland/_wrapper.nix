@@ -4,6 +4,7 @@
   inputs,
   theme ? null,
   noctalia,
+  ghostty,
   ...
 }: let
   # Generate theme.lua
@@ -51,7 +52,7 @@
       return {
         noctalia = "${lib.getExe noctalia}",
         vicinae = "${lib.getExe pkgs.vicinae}",
-        ghostty = "${lib.getExe pkgs.ghostty}",
+        ghostty = "${lib.getExe ghostty}",
         screenshot = "${screenshot}",
       }
     '';

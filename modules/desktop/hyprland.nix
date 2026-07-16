@@ -27,7 +27,6 @@
       hyprpicker
       nwg-displays
 
-      ghostty # should not be here
       vicinae # this too
     ];
     environment.sessionVariables = {
