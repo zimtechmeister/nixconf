@@ -6,8 +6,8 @@ font-size = 12
 window-padding-balance = true
 shell-integration-features = ssh-terminfo, ssh-env
 
-theme = "nixTheme"
+# theme = "nixTheme"
 
-# Allow local config & Noctalia themes to override settings here
+# Allow local config
 config-file = ?~/.config/ghostty/auto/theme.ghostty
 config-file = ?~/.config/ghostty/config.ghostty

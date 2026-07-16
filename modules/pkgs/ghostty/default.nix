@@ -4,7 +4,7 @@
     theme,
     ...
   }: let
-    nixTheme= pkgs.writeText "nix-theme" ''
+    nixTheme = pkgs.writeTextDir "share/ghostty/themes/nixTheme" ''
       palette = 0=#${theme.colors.base00}
       palette = 1=#${theme.colors.base08}
       palette = 2=#${theme.colors.base0B}
@@ -31,12 +31,14 @@
   in {
     packages.ghostty = pkgs.symlinkJoin {
       name = "ghostty";
-      paths = [ pkgs.ghostty ];
-      nativeBuildInputs = [ pkgs.makeWrapper ];
+      paths = [
+        pkgs.ghostty
+        nixTheme
+      ];
+      nativeBuildInputs = [pkgs.makeWrapper];
       postBuild = ''
         rm $out/bin/ghostty
         makeWrapper ${pkgs.ghostty}/bin/ghostty $out/bin/ghostty \
-          --add-flags "--config-file=${nixTheme}" \
           --add-flags "--config-file=${./config}"
       '';
       meta.mainProgram = "ghostty";
