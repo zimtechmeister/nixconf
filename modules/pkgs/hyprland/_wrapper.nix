@@ -84,6 +84,9 @@ in
   pkgs.symlinkJoin {
     name = "hyprland";
     inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland) version;
+    passthru = {
+      providedSessions = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland.providedSessions or [ "hyprland" ];
+    };
     paths =
       [
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland

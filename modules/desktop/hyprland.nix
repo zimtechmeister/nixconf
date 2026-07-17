@@ -3,7 +3,12 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.hyprland = {pkgs, lib, ...}: {
+  flake.nixosModules.hyprland = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: {
     imports = [
       inputs.noctalia.nixosModules.default
     ];
@@ -47,5 +52,16 @@
         };
       }
     ];
+
+    # Enable greetd display manager with tuigreet
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-user-session --asterisks --user-menu --cmd start-hyprland --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions:${config.services.displayManager.sessionData.desktops}/share/xsessions";
+          user = "greeter";
+        };
+      };
+    };
   };
 }
