@@ -9,7 +9,7 @@
     packages.hyprland = pkgs.callPackage ./_wrapper.nix {
       inherit inputs theme;
       noctalia = self'.packages.noctalia;
-      ghostty = self'.packages.ghostty;
+      ghostty = self'.packages.ghostty-wrapped;
       cursor = {
         package = pkgs.phinger-cursors;
         name = "phinger-cursors-dark";

@@ -6,7 +6,8 @@
       cliphist
       wev
 
-      self.packages.${pkgs.stdenv.hostPlatform.system}.ghostty
+      pkgs.ghostty
+      self.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-wrapped
 
       pulsemixer
       pavucontrol

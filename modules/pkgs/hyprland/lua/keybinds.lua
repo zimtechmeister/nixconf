@@ -71,7 +71,7 @@ local move_right = function()
     end
 end
 
-hl.bind("SUPER + Return", hl.dsp.exec_cmd(nix.ghostty))
+hl.bind("SUPER + Return", hl.dsp.exec_cmd(nix.ghostty .. " +new-window"))
 
 hl.bind("SUPER + S", hl.dsp.exec_cmd(nix.screenshot))
 
