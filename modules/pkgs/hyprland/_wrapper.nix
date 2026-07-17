@@ -106,6 +106,47 @@ in
           --set HYPRLAND_CONFIG "${configDir}/hyprland.lua" \
           --prefix PATH : "$out/bin"
       fi
+
+      # Fix hardcoded paths in desktop files, shell completions, and other integration files
+      upstream="${inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland}"
+
+      # Recursively replace directory symlinks under $out (except bin/) with real directories
+      # so we can write to the files inside them.
+      resolve_dir_symlinks() {
+        local dir="$1"
+        find "$dir" -mindepth 1 -maxdepth 1 -type l | while read -r sym; do
+          if [ -d "$sym" ]; then
+            local target
+            target=$(readlink "$sym")
+            rm "$sym"
+            mkdir -p "$sym"
+            cp -r "$target"/* "$sym/"
+            resolve_dir_symlinks "$sym"
+          fi
+        done
+      }
+
+      # Resolve all directory symlinks under $out/share
+      if [ -d "$out/share" ]; then
+        resolve_dir_symlinks "$out/share"
+      fi
+
+      # Find and replace all references to upstream hyprland in text files, pruning bin/ to avoid wrapper loops
+      find -L "$out" -path "$out/bin" -prune -o -type f | while read -r file; do
+        if grep -qI "$upstream" "$file"; then
+          if [ -L "$file" ]; then
+            target=$(readlink "$file")
+            rm "$file"
+            cp "$target" "$file"
+          fi
+          chmod +w "$file"
+          substituteInPlace "$file" \
+            --replace-quiet "$upstream/bin/hyprland" "$out/bin/hyprland" \
+            --replace-quiet "$upstream/bin/Hyprland" "$out/bin/Hyprland" \
+            --replace-quiet "$upstream/bin/start-hyprland" "$out/bin/start-hyprland" \
+            --replace-quiet "$upstream/bin/" "$out/bin/"
+        fi
+      done
     '';
 
     meta = {
