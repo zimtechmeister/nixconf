@@ -1,32 +1,45 @@
-[bar.default]
-margin_ends = 400
-center = [ "group:g2" ]
-end = [ "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
-start = [ "workspaces" ]
+[bar]
+order = [ "default", "r-spacer" ]
 
-    [[bar.default.capsule_group]]
-    enabled = true
-    fill = "surface_variant"
-    id = "g2"
-    members = [ "clock", "date" ]
-    opacity = 1.0
-    padding = 6.0
+    [bar.default]
+    position = "left"
+    margin_ends = 100
+    center = [ "group:g2" ]
+    end = [ "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
+    start = [ "workspaces" ]
 
-    [[bar.default.capsule_group]]
-    enabled = true
-    fill = "surface_variant"
-    id = "g3"
-    members = [ "cpu", "battery" ]
-    opacity = 1.0
-    padding = 6.0
+        [[bar.default.capsule_group]]
+        enabled = true
+        fill = "surface_variant"
+        id = "g2"
+        members = [ "clock", "date" ]
+        opacity = 1.0
+        padding = 6.0
 
-    [[bar.default.capsule_group]]
+        [[bar.default.capsule_group]]
+        enabled = true
+        fill = "surface_variant"
+        id = "g3"
+        members = [ "cpu", "battery" ]
+        opacity = 1.0
+        padding = 6.0
+
+        [[bar.default.capsule_group]]
+        enabled = true
+        fill = "surface_variant"
+        id = "g4"
+        members = [ "network", "bluetooth" ]
+        opacity = 1.0
+        padding = 6.0
+
+    [bar.r-spacer]
+    auto_hide = true
+    center = []
     enabled = true
-    fill = "surface_variant"
-    id = "g4"
-    members = [ "network", "bluetooth" ]
-    opacity = 1.0
-    padding = 6.0
+    end = []
+    position = "right"
+    show_on_workspace_switch = false
+    start = []
 
 [battery]
 warning_threshold = 20

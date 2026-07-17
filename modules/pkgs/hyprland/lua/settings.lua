@@ -86,6 +86,6 @@ hl.config({
         follow_min_visible = 0.3,
         explicit_column_widths = "0.333, 0.5, 0.667, 1.0",
         wrap_focus = false,
-        direction = "down"
+        direction = "right"
     },
 })

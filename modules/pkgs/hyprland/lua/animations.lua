@@ -1,5 +1,5 @@
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 4, bezier = "default", style = "slide bottom" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 4, bezier = "default", style = "slide bottom" })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 4, bezier = "default", style = "slide right" })
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 4, bezier = "default", style = "slide right" })
 hl.animation({ leaf = "windowsMove", enabled = true, speed = 4, bezier = "default" })
 hl.animation({ leaf = "layers", enabled = true, speed = 4, bezier = "default", style = "slide" })
 hl.animation({ leaf = "fade", enabled = false })
@@ -9,4 +9,4 @@ hl.animation({ leaf = "fadePopups", enabled = true, speed = 4, bezier = "default
 hl.animation({ leaf = "fadeDpms", enabled = true, speed = 4, bezier = "default" })
 hl.animation({ leaf = "border", enabled = false })
 hl.animation({ leaf = "borderangle", enabled = false })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 4, bezier = "default", style = "slide" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 4, bezier = "default", style = "slidevert" })

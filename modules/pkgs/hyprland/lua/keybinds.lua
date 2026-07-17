@@ -1,7 +1,7 @@
 local nix = require("nix")
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd(nix.noctalia) -- TODO: can be started as systemd service but hyprland should then also be started with uwsm
+    hl.exec_cmd(nix.noctalia)             -- TODO: can be started as systemd service but hyprland should then also be started with uwsm
     hl.exec_cmd(nix.vicinae .. " server") -- TODO: can be started as systemd service but hyprland should then also be started with uwsm
 end)
 
@@ -98,20 +98,20 @@ for i = 1, 10 do
     hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 
-hl.bind("SUPER + H", focus_left)
-hl.bind("SUPER + J", hl.dsp.layout("focus d"))
-hl.bind("SUPER + K", hl.dsp.layout("focus u"))
-hl.bind("SUPER + L", focus_right)
+hl.bind("SUPER + H", hl.dsp.layout("focus l"))
+hl.bind("SUPER + J", focus_down)
+hl.bind("SUPER + K", focus_up)
+hl.bind("SUPER + L", hl.dsp.layout("focus r"))
 
-hl.bind("SUPER + SHIFT + H", move_left)
-hl.bind("SUPER + SHIFT + J", hl.dsp.window.move({ direction = "d" }))
-hl.bind("SUPER + SHIFT + K", hl.dsp.window.move({ direction = "u" }))
-hl.bind("SUPER + SHIFT + L", move_right)
+hl.bind("SUPER + SHIFT + H", hl.dsp.window.move({ direction = "l" }))
+hl.bind("SUPER + SHIFT + J", move_down)
+hl.bind("SUPER + SHIFT + K", move_up)
+hl.bind("SUPER + SHIFT + L", hl.dsp.window.move({ direction = "r" }))
 
-hl.bind("SUPER + CTRL + H", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
-hl.bind("SUPER + CTRL + K", hl.dsp.layout("colresize -conf"), { repeating = true })
-hl.bind("SUPER + CTRL + J", hl.dsp.layout("colresize +conf"), { repeating = true })
-hl.bind("SUPER + CTRL + L", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
+hl.bind("SUPER + CTRL + H", hl.dsp.layout("colresize -conf"), { repeating = true })
+hl.bind("SUPER + CTRL + K", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
+hl.bind("SUPER + CTRL + J", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
+hl.bind("SUPER + CTRL + L", hl.dsp.layout("colresize +conf"), { repeating = true })
 
 hl.bind("SUPER + left", hl.dsp.focus({ monitor = "l" }))
 hl.bind("SUPER + down", hl.dsp.focus({ monitor = "d" }))
@@ -123,8 +123,5 @@ hl.bind("SUPER + SHIFT", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 hl.bind("SUPER + CTRL", hl.dsp.window.resize(), { mouse = true })
 
-
-hl.gesture({ fingers = 3, direction = "vertical", scale = 4.0, action = "scroll_move" })
-hl.gesture({ fingers = 3, direction = "horizontal", scale = 1.0, action = "workspace" })
--- hl.gesture({ fingers = 3, direction = "down", action = focus_down })
--- hl.gesture({ fingers = 3, direction = "up", action = focus_up })
+hl.gesture({ fingers = 3, direction = "horizontal", scale = 4.0, action = "scroll_move" })
+hl.gesture({ fingers = 3, direction = "vertical", scale = 1.0, action = "workspace" })
