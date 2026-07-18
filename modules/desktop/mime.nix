@@ -14,7 +14,7 @@
 
       "inode/directory" = "org.gnome.Nautilus.desktop";
 
-      "application/pdf" = ["helium.desktop" "zathura.desktop"]; # zathura.desktop
+      "application/pdf" = ["helium.desktop" "zathura.desktop"];
       "text/html" = "helium.desktop";
       "x-scheme-handler/about" = "helium.desktop";
       "x-scheme-handler/http" = "helium.desktop";

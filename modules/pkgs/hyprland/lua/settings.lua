@@ -73,7 +73,7 @@ hl.config({
     },
 
     cursor = {
-        hotspot_padding = 3,
+        hotspot_padding = 4,
         inactive_timeout = 5,
         no_warps = false,
     },

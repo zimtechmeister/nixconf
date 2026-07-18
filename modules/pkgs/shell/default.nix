@@ -1,4 +1,3 @@
-# TODO: check if this works as expected and fix if home manager is removed
 {
   perSystem = {
     pkgs,

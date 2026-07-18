@@ -10,7 +10,6 @@
       helix
       jq
       lsd
-      yazi # TODO: maybe nixosmodule
       htop
       ripgrep
       less
