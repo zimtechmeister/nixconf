@@ -7,11 +7,29 @@
     pkgs,
     lib,
     config,
+    theme,
     ...
   }: let
-    themeSlug = "gruvbox-dark-hard";
-    gtkThemePkg = inputs.basix.packages.${pkgs.stdenv.hostPlatform.system}."gtk-${themeSlug}";
-    qtThemePkg = inputs.basix.packages.${pkgs.stdenv.hostPlatform.system}."qt5ct-${themeSlug}";
+    mkGtkTheme = pkgs.callPackage "${inputs.basix}/packages/gtk/package.nix" {
+      basixLib = inputs.basix.lib;
+    };
+    mkQtctTheme = pkgs.callPackage "${inputs.basix}/packages/qtct/package.nix" {
+      basixLib = inputs.basix.lib;
+    };
+
+    gtkThemePkg = mkGtkTheme {
+      slug = "custom";
+      scheme = {
+        palette = theme.colors;
+      };
+    };
+
+    qtThemePkg = mkQtctTheme {
+      slug = "custom";
+      scheme = {
+        palette = theme.colors;
+      };
+    };
   in {
     imports = [
       inputs.noctalia.nixosModules.default
@@ -25,7 +43,7 @@
 
       vicinae
 
-      # Basix GTK & Qt theme packages
+      # Basix GTK & Qt theme packages built from your custom theme.nix colors
       gtkThemePkg
       qtThemePkg
 
@@ -70,7 +88,7 @@
               cursor-size = lib.gvariant.mkInt32 24;
 
               color-scheme = "prefer-dark";
-              gtk-theme = "basix-${themeSlug}";
+              gtk-theme = "basix-custom";
             };
             "org/gnome/desktop/wm/preferences" = {
               button-layout = ":";
@@ -83,7 +101,7 @@
 
     environment.etc."xdg/gtk-3.0/settings.ini".text = ''
       [Settings]
-      gtk-theme-name=basix-${themeSlug}
+      gtk-theme-name=basix-custom
       gtk-application-prefer-dark-theme=1
     '';
 
@@ -99,7 +117,7 @@
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
 
-      GTK_THEME = "basix-${themeSlug}";
+      GTK_THEME = "basix-custom";
       QT_QPA_PLATFORMTHEME = "qt5ct";
 
       XCURSOR_THEME = "phinger-cursors-dark";
