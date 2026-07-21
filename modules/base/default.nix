@@ -4,6 +4,7 @@
       self.nixosModules.system
       self.nixosModules.fwupd
       self.nixosModules.git
+      self.nixosModules.home-manager
       self.nixosModules.nix
       self.nixosModules.base-packages
       self.nixosModules.plymouth
