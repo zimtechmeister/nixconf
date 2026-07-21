@@ -7,6 +7,7 @@
     pkgs,
     lib,
     config,
+    theme,
     ...
   }: let
     mkGtkTheme = pkgs.callPackage "${inputs.basix}/packages/gtk/package.nix" {
@@ -19,14 +20,14 @@
     gtkThemePkg = mkGtkTheme {
       slug = "custom";
       scheme = {
-        palette = self.themeNoHash.colors;
+        palette = theme.colors;
       };
     };
 
     qtThemePkg = mkQtctTheme {
       slug = "custom";
       scheme = {
-        palette = self.themeNoHash.colors;
+        palette = theme.colors;
       };
     };
   in {
@@ -96,17 +97,13 @@
         }
       ];
     };
-    qt = {
-      enable = true;
-      # style = "adwaita-dark"; # error: The option `qt.style` is defined both null and not null
-      platformTheme = "qt5ct";
-    };
+    qt.platformTheme = "qt5ct";
 
-    # environment.etc."xdg/gtk-3.0/settings.ini".text = ''
-    #   [Settings]
-    #   gtk-theme-name=basix-custom
-    #   gtk-application-prefer-dark-theme=1
-    # '';
+    environment.etc."xdg/gtk-3.0/settings.ini".text = ''
+      [Settings]
+      gtk-theme-name=basix-custom
+      gtk-application-prefer-dark-theme=1
+    '';
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = 1;
@@ -122,7 +119,6 @@
 
       GTK_THEME = "basix-custom";
       QT_QPA_PLATFORMTHEME = "qt5ct";
-      # QT_STYLE_OVERRIDE = "adwaita-dark";
 
       XCURSOR_THEME = "phinger-cursors-dark";
       XCURSOR_SIZE = "24";
