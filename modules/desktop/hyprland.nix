@@ -70,6 +70,7 @@
         }
       ];
     };
+    qt.platformTheme = "qt5ct";
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = 1;
@@ -83,7 +84,7 @@
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
 
-      QT_QPA_PLATFORMTHEME = "qt6ct";
+      QT_QPA_PLATFORMTHEME = "qt5ct";
 
       XCURSOR_THEME = "phinger-cursors-dark";
       XCURSOR_SIZE = "24";
