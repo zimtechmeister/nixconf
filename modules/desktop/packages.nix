@@ -28,11 +28,6 @@
       imv
       qimgv
 
-      libreoffice-fresh
-
-      zotero
-      anki-bin
-
       # useful tools
       switcheroo
       pandoc

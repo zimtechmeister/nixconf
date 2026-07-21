@@ -113,9 +113,5 @@ in
         --add-flags "--cmd 'set packpath^=${packDir} | set runtimepath^=${./lua},${packDir}'" \
         --prefix PATH : "$out/bin"
         # --set VUE_TS_PLUGIN_PATH "${pkgs.vue-language-server}/lib/language-tools/packages/language-server"
-
-      # Robust aliasing
-      ln -sf $out/bin/nvim $out/bin/vi
-      ln -sf $out/bin/nvim $out/bin/vim
     '';
   }

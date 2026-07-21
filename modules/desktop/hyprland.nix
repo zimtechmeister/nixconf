@@ -13,6 +13,21 @@
       inputs.noctalia.nixosModules.default
     ];
 
+    environment.systemPackages = with pkgs; [
+      rtkit
+
+      hyprpicker
+      nwg-displays
+
+      vicinae
+
+      # qt theming
+      libsForQt5.qt5ct
+      qt6Packages.qt6ct
+
+      phinger-cursors
+    ];
+
     programs.hyprland = {
       enable = true;
       withUWSM = false;
@@ -26,33 +41,6 @@
       systemd.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [
-      rtkit
-
-      phinger-cursors
-
-      hyprpicker
-      nwg-displays
-
-      vicinae
-    ];
-
-    # Enable dconf system-wide and configure interface preferences
-    programs.dconf.enable = true;
-    programs.dconf.profiles.user.databases = [
-      {
-        settings = {
-          "org/gnome/desktop/interface" = {
-            cursor-theme = "phinger-cursors-dark";
-            cursor-size = lib.gvariant.mkInt32 24;
-          };
-          "org/gnome/desktop/wm/preferences" = {
-            button-layout = ":";
-          };
-        };
-      }
-    ];
-
     # Enable greetd display manager with tuigreet
     services.greetd = {
       enable = true;
@@ -62,6 +50,45 @@
           user = "greeter";
         };
       };
+    };
+
+    programs.dconf = {
+      enable = true;
+      profiles.user.databases = [
+        {
+          settings = {
+            "org/gnome/desktop/interface" = {
+              cursor-theme = "phinger-cursors-dark";
+              cursor-size = lib.gvariant.mkInt32 24;
+
+              color-scheme = "prefer-dark";
+            };
+            "org/gnome/desktop/wm/preferences" = {
+              button-layout = ":";
+            };
+          };
+        }
+      ];
+    };
+
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = 1;
+
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+
+      GDK_BACKEND = "wayland,x11,*";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      SDL_VIDEODRIVER = "wayland";
+      CLUTTER_BACKEND = "wayland";
+
+      QT_QPA_PLATFORMTHEME = "qt6ct";
+
+      XCURSOR_THEME = "phinger-cursors-dark";
+      XCURSOR_SIZE = "24";
+      HYPRCURSOR_THEME = "phinger-cursors-dark";
+      HYPRCURSOR_SIZE = "24";
     };
   };
 }
