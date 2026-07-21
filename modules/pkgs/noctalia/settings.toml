@@ -137,8 +137,7 @@ mode = "dark"
 source = "custom"
 
     [theme.templates]
-    builtin_ids = [ "gtk3", "gtk4", "kcolorscheme", "qt" ]
-    enable_builtin_templates = true
+    enable_builtin_templates = false
     enable_community_templates = false
 
 [widget.network]

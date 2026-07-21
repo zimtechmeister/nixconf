@@ -5,7 +5,6 @@
 }: {
   flake.nixosModules.hyprland = {
     pkgs,
-    lib,
     config,
     ...
   }: {
@@ -20,12 +19,6 @@
       nwg-displays
 
       vicinae
-
-      # qt theming
-      libsForQt5.qt5ct
-      qt6Packages.qt6ct
-
-      phinger-cursors
     ];
 
     programs.hyprland = {
@@ -57,12 +50,6 @@
       profiles.user.databases = [
         {
           settings = {
-            "org/gnome/desktop/interface" = {
-              cursor-theme = "phinger-cursors-dark";
-              cursor-size = lib.gvariant.mkInt32 24;
-
-              color-scheme = "prefer-dark";
-            };
             "org/gnome/desktop/wm/preferences" = {
               button-layout = ":";
             };
@@ -70,26 +57,14 @@
         }
       ];
     };
-    qt.platformTheme = "qt5ct";
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = 1;
-
-      XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_TYPE = "wayland";
-      XDG_SESSION_DESKTOP = "Hyprland";
 
       GDK_BACKEND = "wayland,x11,*";
       QT_QPA_PLATFORM = "wayland;xcb";
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
-
-      QT_QPA_PLATFORMTHEME = "qt5ct";
-
-      XCURSOR_THEME = "phinger-cursors-dark";
-      XCURSOR_SIZE = "24";
-      HYPRCURSOR_THEME = "phinger-cursors-dark";
-      HYPRCURSOR_SIZE = "24";
     };
   };
 }
