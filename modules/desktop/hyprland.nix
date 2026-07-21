@@ -8,7 +8,11 @@
     lib,
     config,
     ...
-  }: {
+  }: let
+    themeSlug = "gruvbox-dark-hard";
+    gtkThemePkg = inputs.basix.packages.${pkgs.stdenv.hostPlatform.system}."gtk-${themeSlug}";
+    qtThemePkg = inputs.basix.packages.${pkgs.stdenv.hostPlatform.system}."qt5ct-${themeSlug}";
+  in {
     imports = [
       inputs.noctalia.nixosModules.default
     ];
@@ -20,6 +24,10 @@
       nwg-displays
 
       vicinae
+
+      # Basix GTK & Qt theme packages
+      gtkThemePkg
+      qtThemePkg
 
       # qt theming
       libsForQt5.qt5ct
@@ -62,6 +70,7 @@
               cursor-size = lib.gvariant.mkInt32 24;
 
               color-scheme = "prefer-dark";
+              gtk-theme = "basix-${themeSlug}";
             };
             "org/gnome/desktop/wm/preferences" = {
               button-layout = ":";
@@ -71,6 +80,12 @@
       ];
     };
     qt.platformTheme = "qt5ct";
+
+    environment.etc."xdg/gtk-3.0/settings.ini".text = ''
+      [Settings]
+      gtk-theme-name=basix-${themeSlug}
+      gtk-application-prefer-dark-theme=1
+    '';
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = 1;
@@ -84,6 +99,7 @@
       SDL_VIDEODRIVER = "wayland";
       CLUTTER_BACKEND = "wayland";
 
+      GTK_THEME = "basix-${themeSlug}";
       QT_QPA_PLATFORMTHEME = "qt5ct";
 
       XCURSOR_THEME = "phinger-cursors-dark";
