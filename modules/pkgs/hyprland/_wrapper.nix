@@ -4,6 +4,7 @@
   inputs,
   theme ? null,
   noctalia,
+  vicinae,
   ghostty,
   ...
 }: let
@@ -51,7 +52,7 @@
     pkgs.writeText "nix.lua" ''
       return {
         noctalia = "${lib.getExe noctalia}",
-        vicinae = "${lib.getExe pkgs.vicinae}",
+        vicinae = "${lib.getExe vicinae}",
         ghostty = "${lib.getExe ghostty}",
         screenshot = "${screenshot}",
       }

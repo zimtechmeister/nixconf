@@ -18,7 +18,7 @@
       hyprpicker
       nwg-displays
 
-      vicinae
+      self.packages.${pkgs.stdenv.hostPlatform.system}.vicinae
     ];
 
     programs.hyprland = {
