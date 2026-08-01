@@ -10,10 +10,15 @@ write the image to the USB flash drive.
 ```bash
 sudo dd bs=4M conv=fsync oflag=direct status=progress if=<path-to-image> of=/dev/sdX
 ```
-generate hardwareconfig if needed:
+generate facter.json if needed:
 ```bash
-nixos-generate-config --no-filesystems --force --dir ./ # when to use --root?
+sudo nix run nixpkgs#nixos-facter -- -o facter.json
+sudo chown $USER:users facter.json
+sudo chmod 644 facter.json
 ```
+> [!NOTE]
+> when swapping out some hardware you sould generate a new facter.json
+
 there is a disko-install command which should format the disk and install nixos, but ram usage is very high and it seems to be better to do it manually
 ```bash
 sudo nix run --extra-experimental-features 'nix-command flakes' github:nix-community/disko/latest#disko-install -- --flake .#desktop --disk main /dev/sda
@@ -104,7 +109,6 @@ sudo nix-store --optimise
 [vimjoyer](https://github.com/Goxore/nixconf)
 - [ ] update (e.g. helium) using github actions
 - [ ] devenv / devbox / flox / direnv / my own
-- [ ] [hardware](https://github.com/NixOS/nixos-hardware) / [facter](https://github.com/nix-community/nixos-facter)
 - [ ] [anywhere](https://github.com/nix-community/nixos-anywhere) [example](https://github.com/nix-community/nixos-anywhere-examples)
 laptop only:
 - [ ] tlp

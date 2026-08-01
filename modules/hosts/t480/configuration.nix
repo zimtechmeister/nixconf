@@ -11,10 +11,8 @@
 
   flake.nixosModules.hostT480 = {
     imports = [
-      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
       inputs.disko.nixosModules.disko
       self.diskoConfigurations.t480
-      ./_hardware-configuration.nix
 
       self.nixosModules.base
       self.nixosModules.default-desktop
@@ -23,6 +21,8 @@
       self.nixosModules.kanata
       self.nixosModules.notebook-power
     ];
+
+    hardware.facter.reportPath = ./facter.json;
 
     networking.hostName = "t480";
 
