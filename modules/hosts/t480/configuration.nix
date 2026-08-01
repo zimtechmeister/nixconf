@@ -11,6 +11,7 @@
 
   flake.nixosModules.hostT480 = {
     imports = [
+      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
       inputs.disko.nixosModules.disko
       self.diskoConfigurations.t480
       ./_hardware-configuration.nix
