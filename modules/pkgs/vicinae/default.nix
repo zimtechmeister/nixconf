@@ -49,6 +49,7 @@
         nixTheme
         nixIcon
       ];
+      meta.mainProgram = "vicinae";
       postBuild = ''
         rm $out/bin/vicinae
         cat <<EOF > $out/bin/vicinae
