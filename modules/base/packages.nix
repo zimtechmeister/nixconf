@@ -22,6 +22,7 @@
       smartmontools
       bat
       difftastic
+      hunk
       tealdeer
       bottom
       lazygit
