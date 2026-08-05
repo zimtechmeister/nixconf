@@ -2,13 +2,15 @@
 order = [ "default", "r-spacer" ]
 
     [bar.default]
-    position = "left"
-    margin_ends = 100
     center = [ "group:g2" ]
-    end = [ "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
+    end = [ "privacy", "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
+    margin_ends = 100
+    position = "left"
     start = [ "workspaces" ]
 
         [[bar.default.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
         enabled = true
         fill = "surface_variant"
         id = "g2"
@@ -17,6 +19,8 @@ order = [ "default", "r-spacer" ]
         padding = 6.0
 
         [[bar.default.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
         enabled = true
         fill = "surface_variant"
         id = "g3"
@@ -25,7 +29,9 @@ order = [ "default", "r-spacer" ]
         padding = 6.0
 
         [[bar.default.capsule_group]]
-        enabled = true
+        accordion = false
+        accordion_direction = "end"
+        enabled = false
         fill = "surface_variant"
         id = "g4"
         members = [ "network", "bluetooth" ]
@@ -33,9 +39,9 @@ order = [ "default", "r-spacer" ]
         padding = 6.0
 
     [bar.r-spacer]
-    auto_hide = true
-    center = []
-    enabled = true
+    auto_hide = false
+    center = [ "taskbar" ]
+    enabled = false
     end = []
     position = "right"
     show_on_workspace_switch = false
@@ -48,8 +54,30 @@ warning_threshold = 20
 enabled = true
 refresh_minutes = 5
 
-    [calendar.account.b7a4e4779b5a651abf6070275823e79b8ab6f1807cdd05b6ad6167a9b34df745]
-    type = "google"
+[[control_center.shortcuts]]
+type = "wifi"
+
+[[control_center.shortcuts]]
+type = "bluetooth"
+
+[[control_center.shortcuts]]
+type = "wallpaper"
+
+[[control_center.shortcuts]]
+type = "caffeine"
+
+[[control_center.shortcuts]]
+type = "nightlight"
+
+[[control_center.shortcuts]]
+type = "notification"
+
+[dock]
+background_opacity = 1.0
+cross_axis_padding = 0
+enabled = true
+icon_size = 24
+position = "right"
 
 [idle]
 behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
@@ -79,43 +107,6 @@ tint_intensity = 0.0
 
 [lockscreen_widgets]
 enabled = true
-schema_version = 2
-widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-0000000000000001" ]
-
-    [lockscreen_widgets.grid]
-    cell_size = 16
-    major_interval = 4
-    visible = true
-
-    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
-    box_height = 70.0
-    box_width = 400.0
-    cx = 960.0
-    cy = 961.0
-    output = "eDP-1"
-    rotation = 0.0
-    type = "login_box"
-
-        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
-        background_color = "surface_variant"
-        background_opacity = 0.88
-        background_radius = 12.0
-        center_password_text = false
-        input_opacity = 1.0
-        input_radius = 6.0
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_password_hint = true
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
-    box_height = 0.0
-    box_width = 0.0
-    cx = 960.0
-    cy = 93.0
-    output = "eDP-1"
-    rotation = 0.0
-    type = "clock"
 
 [nightlight]
 enabled = true
@@ -126,22 +117,38 @@ position_vertical = "center_right"
 
 [shell]
 launch_apps_as_systemd_services = true
+panel_anchor_bar = "default"
 polkit_agent = true
 screen_time_enabled = true
 
+    [shell.panel]
+    polkit_placement = "attached"
+
 [theme]
-builtin = "Gruvbox"
-community_palette = "Oxocarbon"
 custom_palette = "nix"
 mode = "dark"
 source = "custom"
 
-    [theme.templates]
-    enable_builtin_templates = false
-    enable_community_templates = false
+[widget.battery]
+display_mode = "graphic"
 
 [widget.network]
 show_label = false
 
+[widget.privacy.actions]
+left = "mic-mute"
+
+[widget.session]
+enabled = false
+
+[widget.taskbar]
+only_active_workspace = true
+
 [widget.tray]
 drawer = true
+
+[widget.volume]
+enabled = false
+
+[widget.wallpaper]
+enabled = false
