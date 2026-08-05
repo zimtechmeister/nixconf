@@ -5,8 +5,8 @@
   ...
 }: let
   wallpaper = pkgs.fetchurl {
-    url = "https://w.wallhaven.cc/full/qr/wallhaven-qrr21r.png";
-    hash = "sha256-P/dy3Oiup0UC+ApPI+HBlJEYQ9w/gATlHX1FKnNZb08=";
+    url = "https://raw.githubusercontent.com/zimtechmeister/wallpaper/refs/heads/master/eva01-flower.png";
+    hash = "sha256-nNRc40PfjCLjONb7JGXESDhJGngyR5qmheASf661NjI=";
   };
 
   paletteJSON =
@@ -70,6 +70,9 @@
     cat <<EOF >> $out
 
     [wallpaper.default]
+    path = "${wallpaper}"
+
+    [wallpaper.last]
     path = "${wallpaper}"
     EOF
   '';
