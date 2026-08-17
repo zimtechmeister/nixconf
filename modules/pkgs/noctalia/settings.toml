@@ -41,7 +41,7 @@ order = [ "default", "r-spacer" ]
     [bar.r-spacer]
     auto_hide = false
     center = [ "taskbar" ]
-    enabled = false
+    enabled = true
     end = []
     position = "right"
     show_on_workspace_switch = false
@@ -75,7 +75,7 @@ type = "notification"
 [dock]
 background_opacity = 1.0
 cross_axis_padding = 0
-enabled = true
+enabled = false
 icon_size = 24
 position = "right"
 
@@ -189,6 +189,7 @@ enabled = false
 
 [widget.taskbar]
 only_active_workspace = true
+scale = 1.5
 
 [widget.tray]
 drawer = true
