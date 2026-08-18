@@ -119,9 +119,7 @@ hl.bind("SUPER + up", hl.dsp.focus({ monitor = "u" }))
 hl.bind("SUPER + right", hl.dsp.focus({ monitor = "r" }))
 
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind("SUPER + SHIFT", hl.dsp.window.drag(), { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
-hl.bind("SUPER + CTRL", hl.dsp.window.resize(), { mouse = true })
 
 hl.gesture({ fingers = 3, direction = "horizontal", scale = 4.0, action = "scroll_move" })
 hl.gesture({ fingers = 3, direction = "vertical", scale = 1.0, action = "workspace" })
