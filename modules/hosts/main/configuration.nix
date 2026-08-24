@@ -11,7 +11,8 @@
 
   flake.nixosModules.hostMain = {
     imports = [
-      ./_hardware-configuration.nix
+      inputs.disko.nixosModules.disko
+      self.diskoConfigurations.main
 
       self.nixosModules.base
       self.nixosModules.default-desktop
@@ -19,6 +20,8 @@
       self.nixosModules.gaming
       self.nixosModules.virt-manager
     ];
+
+    hardware.facter.reportPath = ./facter.json;
 
     networking.hostName = "main";
 
