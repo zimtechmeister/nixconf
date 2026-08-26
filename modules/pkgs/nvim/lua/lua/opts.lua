@@ -43,7 +43,6 @@ vim.opt.hlsearch       = true          -- Highlight all search results
 vim.opt.incsearch      = true          -- Show search results while typing
 vim.opt.infercase      = true          -- Infer letter cases for a richer built-in keyword completion
 vim.opt.smartcase      = true          -- Don't ignore case when searching if pattern has upper case
-vim.opt.smartindent    = true          -- Make indenting smart
 
 vim.opt.inccommand     = 'split'       -- Preview substitutions live, as you type
 
