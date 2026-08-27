@@ -3,27 +3,27 @@
   inputs,
   ...
 }: {
-  flake.nixosConfigurations.main = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.tower = inputs.nixpkgs.lib.nixosSystem {
     modules = [
-      self.nixosModules.hostMain
+      self.nixosModules.hostTower
     ];
   };
 
-  flake.nixosModules.hostMain = {
+  flake.nixosModules.hostTower = {
     imports = [
       inputs.disko.nixosModules.disko
-      self.diskoConfigurations.main
+      self.diskoConfigurations.tower
 
       self.nixosModules.base
       self.nixosModules.default-desktop
 
-      self.nixosModules.gaming
-      self.nixosModules.virt-manager
+      # self.nixosModules.gaming
+      # self.nixosModules.virt-manager
     ];
 
     hardware.facter.reportPath = ./facter.json;
 
-    networking.hostName = "main";
+    networking.hostName = "tower";
 
     boot.loader.limine = {
       extraEntries = ''

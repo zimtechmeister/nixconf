@@ -1,0 +1,40 @@
+# .sops.yaml
+# Configuration for SOPS secret encryption rules and public keys.
+#
+# Generate new age keys from SSH keys using:
+#   ssh-to-age < ~/.ssh/id_ed25519.pub
+#   ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+
+keys:
+  # Users (User SSH keys converted to age)
+  - &tim_tower age13w8jk7zmqkys5mmhuhu8gvlp605aa6rx3szh6trlh2lmlv56eagsnh0awq
+  - &tim_t480 age1fklmljartxt5rn6jpkclsttmhtyskg8xxzfkncyflxzawlr5vv0qvumj2d
+
+  # Hosts (Host SSH keys converted to age)
+  - &host_tower age1z43cl48ml7f4cg50v6h8zjc6p5kk35358jfqrm6arhn9xacu4avsllrmq3
+  - &host_t480 age13qnm9q90n4u92a0us42srl8unzt7h97gpmk68nja98zxeqwlx50syaladm
+
+creation_rules:
+  # Host-specific secrets (accessible by admin users + only that specific host)
+  - path_regex: secrets/hosts/tower(\..+)?\.yaml$
+    key_groups:
+      - age:
+          - *tim_tower
+          - *tim_t480
+          - *host_tower
+
+  - path_regex: secrets/hosts/t480(\..+)?\.yaml$
+    key_groups:
+      - age:
+          - *tim_tower
+          - *tim_t480
+          - *host_t480
+
+  # Default / Shared secrets (accessible by all users + all hosts)
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *tim_tower
+          - *tim_t480
+          - *host_tower
+          - *host_t480

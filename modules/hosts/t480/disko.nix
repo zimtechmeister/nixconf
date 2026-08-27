@@ -1,5 +1,5 @@
 {
-  flake.diskoConfigurations.t480 = {config, ...}: {
+  flake.diskoConfigurations.t480 = {
     disko.devices = {
       disk.main = {
         device = "/dev/disk/by-id/nvme-Micron_2450_NVMe_256GB_22353B15F9E2";

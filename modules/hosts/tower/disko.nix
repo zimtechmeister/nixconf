@@ -1,5 +1,5 @@
 {
-  flake.diskoConfigurations.main = {config, ...}: {
+  flake.diskoConfigurations.tower = {
     disko.devices = {
       disk.main = {
         device = "/dev/disk/by-id/ata-M.2_SSD_512GB_200089100434";
@@ -30,6 +30,7 @@
               content = {
                 type = "bcachefs";
                 filesystem = "pool";
+                label = "ssd";
               };
             };
           };
@@ -38,21 +39,28 @@
       bcachefs_filesystems = {
         pool = {
           type = "bcachefs_filesystem";
-          passwordFile = config.age.secrets.disk-encryption.path;
+          passwordFile = "/tmp/disk.key";
+          # disko has a known upstream bug (Issue #1253
+          # https://github.com/nix-community/disko/issues/1253) where defining
+          # multiple subvolumes under an encrypted bcachefs_filesystem causes
+          # Disko to attempt unlocking the disk multiple times sequentially.
+          # this is why i 
+          mountpoint = "/";
+          mountOptions = ["noatime"];
           extraFormatArgs = [
             "--compression=zstd"
             "--background_compression=zstd"
           ];
-          subvolumes = {
-            "subvolumes/root" = {
-              mountpoint = "/";
-              mountOptions = ["noatime"];
-            };
-            "subvolumes/home" = {
-              mountpoint = "/home";
-              mountOptions = ["noatime"];
-            };
-          };
+          # subvolumes = {
+          #   "subvolumes/root" = {
+          #     mountpoint = "/";
+          #     mountOptions = ["noatime"];
+          #   };
+          #   "subvolumes/home" = {
+          #     mountpoint = "/home";
+          #     mountOptions = ["noatime"];
+          #   };
+          # };
         };
       };
     };

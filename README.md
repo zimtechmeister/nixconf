@@ -1,39 +1,65 @@
 # Installation
-> [!WARNING]
-> agenix still needs new ssh keys from
-> `/etc/ssh/ssh_host_*_key.pub` and
-> `~/.ssh/id_ed25519.pub` to work, so you need to generate those first and add
-> them to the flake before installing
-
-requires NixOS [ISO](https://nixos.org/download/#nixos-iso)  
+requires NixOS [minimal ISO](https://nixos.org/download.html#nixos-iso)
 write the image to the USB flash drive.
 ```bash
 sudo dd bs=4M conv=fsync oflag=direct status=progress if=<path-to-image> of=/dev/sdX
 ```
-generate facter.json if needed:
+boot the latest Kernel and set the root password to connect via SSH
+```bash
+sudo passwd root
+```
+
+## Nix Flake Installer (`nix run .#install`)
+
+You can install any host with a single command. The installer automatically:
+1. Generates or copies the SSH host private/public key into `--extra-files` for `/etc/ssh`.
+2. Computes the Age public key using `ssh-to-age` and checks it against `.sops.yaml`.
+3. Extracts the `disk-encryption-key` from `secrets/hosts/<host>.yaml` (or `secrets/secrets.yaml`).
+4. Runs `nixos-anywhere` with all parameters wired up.
+
+```bash
+# Install 'tower'
+nix run .#install -- -H tower root@192.168.178.87
+
+# Install 't480'
+nix run .#install -- -H t480 root@192.168.178.88
+
+# From any remote machine:
+nix run github:zimtechmeister/nixconf#install -- -H tower root@192.168.178.87
+```
+
+---
+
+## Manual One-Liner (Raw `nixos-anywhere`)
+
+If you want to run `nixos-anywhere` manually without the wrapper script:
+
+```bash
+# 1. Create a temporary folder with host SSH keys
+TMP_DIR=$(mktemp -d)
+mkdir -p "$TMP_DIR/etc/ssh"
+ssh-keygen -t ed25519 -N "" -C "root@tower" -f "$TMP_DIR/etc/ssh/ssh_host_ed25519_key"
+chmod 600 "$TMP_DIR/etc/ssh/ssh_host_ed25519_key"
+
+# 2. Extract disk key & run nixos-anywhere
+nix run github:nix-community/nixos-anywhere -- \
+  --disk-encryption-keys /tmp/disk.key <(sops --extract '["disk-encryption-key"]' -d secrets/secrets.yaml) \
+  --extra-files "$TMP_DIR" \
+  --flake ~/nixconf#tower \
+  root@192.168.178.87
+
+# 3. Clean up
+rm -rf "$TMP_DIR"
+```
+
+# Hardware
 ```bash
 sudo nix run nixpkgs#nixos-facter -- -o facter.json
 sudo chown $USER:users facter.json
 sudo chmod 644 facter.json
 ```
 > [!NOTE]
-> when swapping out some hardware you sould generate a new facter.json
-
-there is a disko-install command which should format the disk and install nixos, but ram usage is very high and it seems to be better to do it manually
-```bash
-sudo nix run --extra-experimental-features 'nix-command flakes' github:nix-community/disko/latest#disko-install -- --flake .#desktop --disk main /dev/sda
-```
-partition from live-iso:  
-clone the repo first
-```bash
-sudo nix \
---extra-experimental-features 'nix-command flakes' \
-run github:nix-community/disko/latest -- --mode disko ./hosts/desktop/disko.nix
-```
-Installation
-```bash
-sudo nixos-install --flake .#desktop
-```
+> when swapping out some hardware you should generate a new facter.json
 
 # Secure Boot
 1. Put Secure Boot into **Setup Mode** (to allow automated enrollment).  
@@ -74,12 +100,12 @@ sudo nixos-install --flake .#desktop
 
 # Commands
 ## Rebuild
-Rebuild: "desktop" is the host in those examples
+Rebuild: "tower" is the host in those examples
 ```bash
-sudo nixos-rebuild switch --flake github:zimtechmeister/flocke#desktop
+sudo nixos-rebuild switch --flake github:zimtechmeister/flocke#tower
 ```
 ```bash
-nh os switch /path/to/flake -H desktop
+nh os switch /path/to/flake -H tower
 ```
 
 ## Update
@@ -104,6 +130,130 @@ sudo nix-collect-garbage -d
 sudo nix-store --optimise
 ```
 
+
+# Secrets Management (sops-nix)
+
+This repository uses [`sops-nix`](https://github.com/Mic92/sops-nix) for declarative, encrypted secret management.
+
+- **Host SSH keys** (`/etc/ssh/ssh_host_ed25519_key`) are used by machines to decrypt secrets automatically at boot/switch.
+- **User SSH/Age keys** (`~/.ssh/id_ed25519`) are used by administrators to edit secrets.
+
+## Structure
+- `secrets/secrets.yaml`: Shared secrets accessible by all hosts and user keys.
+- `secrets/hosts/<hostname>.yaml`: Host-specific secrets accessible only by that host and user keys.
+
+---
+
+## 1. One-Time Setup (Export User Age Key for Editing)
+To allow the `sops` CLI to decrypt/edit secrets using your existing SSH key:
+
+```bash
+mkdir -p ~/.config/sops/age
+
+# Temporarily copy key to RAM (/dev/shm) to safely strip passphrase for conversion
+TMP_KEY=$(mktemp -p /dev/shm)
+install -m 600 ~/.ssh/id_ed25519 "$TMP_KEY"
+ssh-keygen -p -N "" -f "$TMP_KEY"
+ssh-to-age -private-key -i "$TMP_KEY" -o ~/.config/sops/age/keys.txt
+chmod 600 ~/.config/sops/age/keys.txt
+rm -f "$TMP_KEY"
+```
+
+---
+
+## 2. View and Edit Secrets
+```bash
+# Edit shared secrets:
+sops secrets/secrets.yaml
+
+# Edit host-specific secrets:
+sops secrets/hosts/tower.yaml
+sops secrets/hosts/t480.yaml
+```
+> [!TIP]
+> To generate hashed passwords for user accounts, run:
+> ```bash
+> mkpasswd -m yescrypt
+> ```
+
+---
+
+## 3. Adding a New Host Key
+1. **Convert host SSH public key to Age**:
+   ```bash
+   ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+   ```
+   *(If deploying with `nixos-anywhere`, pre-generate the SSH key locally and pass it via `--extra-files`).*
+
+2. **Add the Age key to [.sops.yaml](file:///.sops.yaml)** under `keys` and update the relevant `creation_rules`.
+
+3. **Re-encrypt secrets for the new host**:
+   ```bash
+   sops updatekeys secrets/secrets.yaml
+   sops updatekeys secrets/hosts/<hostname>.yaml
+   ```
+
+---
+
+## 4. Adding a New User Key
+1. **Convert user SSH public key to Age**:
+   ```bash
+   ssh-to-age < ~/.ssh/id_ed25519.pub
+   # or from age keyfile:
+   age-keygen -y ~/.config/sops/age/keys.txt
+   ```
+
+2. **Add the key to [.sops.yaml](file:///.sops.yaml)** under `keys` and include it in all `creation_rules`.
+
+3. **Re-encrypt all secrets**:
+   ```bash
+   sops updatekeys secrets/secrets.yaml
+   sops updatekeys secrets/hosts/tower.yaml
+   sops updatekeys secrets/hosts/t480.yaml
+   ```
+
+---
+
+## 5. Using Secrets in NixOS Modules
+Declare secrets in your NixOS configuration (e.g. [modules/base/secrets.nix](file:///home/tim/nixconf/modules/base/secrets.nix)):
+
+```nix
+sops.secrets = {
+  # Common secret from secrets/secrets.yaml
+  "tim-password".neededForUsers = true; # Needed early at boot for user account creation
+
+  # Host-specific secret
+  "custom-token" = {
+    sopsFile = ../../../secrets/hosts/tower.yaml;
+    owner = "tim";
+    group = "users";
+    mode = "0400";
+  };
+};
+
+# Plaintext secret path available at:
+# config.sops.secrets."custom-token".path
+```
+
+> [!IMPORTANT]
+> Nix Flakes only see files tracked by Git. Always stage changes after creating or updating secrets:
+> ```bash
+> git add .sops.yaml secrets/
+> ```
+
+# Eduroam
+download the eduroam script from [here](https://cat.eduroam.org/)  
+enter a shell with
+```bash
+nix-shell -p "python3.withPackages (ps: with ps; [ dbus-python ])"
+```
+and execute the eduroam script.  
+In nmtui edit the eduroam connection and set "Store password for all users" so
+you wont need to enter the password every time you log in
+```bash
+python ./location/eduroamscript
+```
+
 # TODO
 [generally good source](https://www.vimjoyer.com/nix)
 [vimjoyer](https://github.com/Goxore/nixconf)
@@ -112,16 +262,3 @@ sudo nix-store --optimise
 - [ ] [anywhere](https://github.com/nix-community/nixos-anywhere) [example](https://github.com/nix-community/nixos-anywhere-examples)
 laptop only:
 - [ ] tlp
-
-# Eduroam
-download the eduroam script from [here](https://cat.eduroam.org/)  
-enter a shell with
-```bash
-nix-shell -p "python3.withPackages (ps: with ps; [ dbus-python ])"
-```
-and execute the eduroamscript\
-in nmtui edit the eduroam connection and set "Store password for all users" so
-you wont need to enter the password every time you log in
-```bash
-python ./location/eduroamscript
-```
