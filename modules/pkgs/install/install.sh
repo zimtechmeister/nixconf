@@ -36,7 +36,7 @@ fi
 
 # Default configuration values
 FLAKE_DIR="$DEFAULT_FLAKE_DIR"
-HOST="tower"
+HOST=""
 TARGET=""
 SOPS_FILE=""
 KEY_NAME="disk-encryption-key"
@@ -47,14 +47,14 @@ EXTRA_ARGS=()
 NO_CONFIRM=false
 
 usage() {
-  echo -e "${BOLD}Usage:${NC} nix run .#install -- [OPTIONS] <TARGET>
+  echo -e "${BOLD}Usage:${NC} nix run .#install -- -H <HOST> [OPTIONS] <TARGET>
 
 ${BOLD}Arguments:${NC}
   <TARGET>                     SSH target (e.g. root@192.168.178.87)
 
 ${BOLD}Options:${NC}
   -h, --help                   Show this help message and exit
-  -H, --host <NAME>            NixOS configuration name in flake (default: tower)
+  -H, --host <NAME>            NixOS host configuration name in flake (required, e.g. tower, t480)
   -f, --flake <DIR>            Flake directory path (default: ${DEFAULT_FLAKE_DIR})
   -s, --sops-file <PATH>       Path to SOPS file containing disk encryption key
   -k, --key-name <NAME>        Key name inside SOPS file (default: disk-encryption-key)
@@ -65,8 +65,8 @@ ${BOLD}Options:${NC}
   -- <EXTRA_ARGS...>           Additional arguments to pass directly to nixos-anywhere
 
 ${BOLD}Examples:${NC}
-  nix run .#install -- root@192.168.178.87
   nix run .#install -- -H tower root@192.168.178.87
+  nix run .#install -- -H t480 root@192.168.178.88
   nix run .#install -- -H t480 -r /tmp/secret.key root@192.168.178.88"
   exit 0
 }
@@ -127,6 +127,18 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ -z "$HOST" ]]; then
+  AVAILABLE_HOSTS=""
+  if [[ -d "$FLAKE_DIR/modules/hosts" ]]; then
+    AVAILABLE_HOSTS="$(find "$FLAKE_DIR/modules/hosts" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort | tr '\n' ' ')"
+  fi
+  if [[ -n "$AVAILABLE_HOSTS" ]]; then
+    error "Host configuration is required (-H / --host <NAME>). Available hosts: ${AVAILABLE_HOSTS}"
+  else
+    error "Host configuration is required (-H / --host <NAME>). Use --help for usage."
+  fi
+fi
 
 if [[ -z "$TARGET" ]]; then
   error "Target SSH destination is required (e.g. root@192.168.178.87). Use --help for details."
