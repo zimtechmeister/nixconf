@@ -210,8 +210,30 @@ echo ""
 SOPS_CONFIG="$FLAKE_DIR/.sops.yaml"
 if [[ -f "$SOPS_CONFIG" ]]; then
   if ! grep -q "$HOST_AGE_KEY" "$SOPS_CONFIG"; then
-    warn "The generated Age public key ($HOST_AGE_KEY) was not found in $SOPS_CONFIG."
-    warn "If this host uses host-specific sops-nix secrets, make sure to add it to .sops.yaml and run 'sops updatekeys'."
+    echo -e "${YELLOW}${BOLD}╔══════════════════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${YELLOW}${BOLD}║                           ACTION REQUIRED FOR SOPS                           ║${NC}"
+    echo -e "${YELLOW}${BOLD}╚══════════════════════════════════════════════════════════════════════════════╝${NC}"
+    echo -e "${YELLOW}The generated Age public key is NOT in ${SOPS_CONFIG}:${NC}"
+    echo -e "  ${BOLD}${HOST_AGE_KEY}${NC}"
+    echo ""
+    echo -e "${YELLOW}For sops-nix to decrypt secrets on the newly installed system, follow these steps:${NC}"
+    echo ""
+    echo -e "  ${BOLD}1. Add / Update host key in ${SOPS_CONFIG}:${NC}"
+    echo -e "     Under ${BOLD}keys:${NC}, add or replace:"
+    echo -e "       ${GREEN}- &host_${HOST} ${HOST_AGE_KEY}${NC}"
+    echo ""
+    echo -e "  ${BOLD}2. Re-encrypt secrets with the new key:${NC}"
+    echo -e "     ${GREEN}sops updatekeys secrets/secrets.yaml${NC}"
+    if [[ -f "$FLAKE_DIR/secrets/hosts/${HOST}.yaml" ]]; then
+      echo -e "     ${GREEN}sops updatekeys secrets/hosts/${HOST}.yaml${NC}"
+    fi
+    echo ""
+    echo -e "  ${BOLD}3. Stage the updated files in Git:${NC}"
+    echo -e "     ${GREEN}git add .sops.yaml secrets/${NC}"
+    echo ""
+    echo -e "${YELLOW}${BOLD}Tip:${NC} If you already have an existing host SSH key, pass ${BOLD}--host-key <path>${NC} to avoid updating SOPS."
+    echo -e "${YELLOW}────────────────────────────────────────────────────────────────────────────────${NC}"
+    echo ""
   else
     info "Host Age key is present in $SOPS_CONFIG."
   fi
