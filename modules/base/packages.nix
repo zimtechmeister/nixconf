@@ -62,6 +62,8 @@
 
       rustc
       cargo
+
+      asciidoctor
     ];
     environment.sessionVariables = {
       EDITOR = "nvim";
