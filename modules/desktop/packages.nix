@@ -34,6 +34,7 @@
       pandoc
       imagemagick
     ];
+
     # Sound (PipeWire)
     services.pipewire = {
       enable = true;
@@ -43,6 +44,9 @@
       jack.enable = true;
       wireplumber.enable = true;
     };
+
+    services.gvfs.enable = true;
+
     security.rtkit.enable = true;
 
     # Printing / CUPS
