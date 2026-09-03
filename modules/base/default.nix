@@ -2,6 +2,7 @@
   flake.nixosModules.base = {
     imports = [
       self.nixosModules.system
+      self.nixosModules.atuin
       self.nixosModules.fwupd
       self.nixosModules.git
       self.nixosModules.home-manager

@@ -14,6 +14,7 @@
           self'.packages.starship
           zoxide
           yazi
+          atuin
         ];
         shellAliases = {
           ls = "lsd -lhAg --group-dirs first --header";
@@ -26,6 +27,9 @@
 
           # Zoxide cd replacement
           zoxide init fish | source
+
+          # Atuin shell history
+          atuin init fish | source
 
           # Starship prompt
           starship init fish | source
