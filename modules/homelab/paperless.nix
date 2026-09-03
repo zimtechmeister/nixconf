@@ -1,11 +1,32 @@
 {
   flake.nixosModules.paperless = {
-    # TODO: hide password / manage with sops
-    environment.etc."paperless-admin-pass".text = "password123";
+    config,
+    lib,
+    ...
+  }: {
+    # SOPS placeholder:
+    # 1. Add secret to secrets.yaml or secrets/hosts/optiplex3000.yaml:
+    #    paperless-admin-pass: "..."
+    #    paperless-secret-key: "..."
+    # 2. Uncomment the sops.secrets entries and switch passwordFile / environmentFile below:
+    # sops.secrets."paperless-admin-pass" = {
+    #   # owner = "paperless";
+    #   # sopsFile = ../../secrets/hosts/optiplex3000.yaml;
+    # };
+    # sops.secrets."paperless-secret-key" = {
+    #   # owner = "paperless";
+    #   # sopsFile = ../../secrets/hosts/optiplex3000.yaml;
+    # };
+
+    # Temporary plaintext fallback / placeholder
+    environment.etc."paperless-admin-pass".text = lib.mkDefault "password123";
+
     services.paperless = {
       # user = "${homelab_user}";
       enable = true;
-      passwordFile = "/etc/paperless-admin-pass";
+      passwordFile = lib.mkDefault "/etc/paperless-admin-pass";
+      # passwordFile = config.sops.secrets."paperless-admin-pass".path;
+      # environmentFile = config.sops.secrets."paperless-secret-key".path;
       settings = {
         PAPERLESS_OCR_LANGUAGES = "deu+eng";
         PAPERLESS_SECRET_KEY = "<redacted>";

@@ -1,7 +1,23 @@
 {
-  flake.nixosModules.nextcloud = {pkgs, ...}: {
-    # TODO: hide password
-    environment.etc."nextcloud-admin-pass".text = "";
+  flake.nixosModules.nextcloud = {
+    pkgs,
+    config,
+    lib,
+    ...
+  }: {
+    # SOPS placeholder:
+    # 1. Add secret to secrets.yaml or secrets/hosts/optiplex3000.yaml:
+    #    nextcloud-admin-pass: "..."
+    # 2. Uncomment the sops.secrets entry and switch adminpassFile below:
+    # sops.secrets."nextcloud-admin-pass" = {
+    #   owner = "nextcloud";
+    #   group = "nextcloud";
+    #   # sopsFile = ../../secrets/hosts/optiplex3000.yaml;
+    # };
+
+    # Temporary plaintext fallback / placeholder
+    environment.etc."nextcloud-admin-pass".text = lib.mkDefault "";
+
     services = {
       nextcloud = {
         enable = true;
@@ -16,7 +32,8 @@
         config = {
           dbtype = "sqlite";
           adminuser = "root";
-          adminpassFile = "/etc/nextcloud-admin-pass";
+          adminpassFile = lib.mkDefault "/etc/nextcloud-admin-pass";
+          # adminpassFile = config.sops.secrets."nextcloud-admin-pass".path;
         };
         settings = {
           default_phone_region = "DE";

@@ -13,6 +13,7 @@ keys:
   # Hosts (Host SSH keys converted to age)
   - &host_tower age1z43cl48ml7f4cg50v6h8zjc6p5kk35358jfqrm6arhn9xacu4avsllrmq3
   - &host_t480 age13qnm9q90n4u92a0us42srl8unzt7h97gpmk68nja98zxeqwlx50syaladm
+  # - &host_optiplex3000 <age-public-key-here>
 
 creation_rules:
   # Host-specific secrets (accessible by admin users + only that specific host)
@@ -30,6 +31,13 @@ creation_rules:
           - *tim_t480
           - *host_t480
 
+  # - path_regex: secrets/hosts/optiplex3000(\..+)?\.yaml$
+  #   key_groups:
+  #     - age:
+  #         - *tim_tower
+  #         - *tim_t480
+  #         - *host_optiplex3000
+
   # Default / Shared secrets (accessible by all users + all hosts)
   - path_regex: secrets/.*\.yaml$
     key_groups:
@@ -38,3 +46,4 @@ creation_rules:
           - *tim_t480
           - *host_tower
           - *host_t480
+          # - *host_optiplex3000
