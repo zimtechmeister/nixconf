@@ -4,8 +4,8 @@
       power-profiles-daemon.enable = true;
       upower.enable = true;
       logind.settings.Login = {
-        HandleLidSwitch = "ignore";
-        KillUserProcesses = false;
+        HandleLidSwitch = "suspend";
+        HandleLidSwitchDocked = "ignore"; # Keeps the laptop awake if plugged into an external monitor
       };
     };
   };

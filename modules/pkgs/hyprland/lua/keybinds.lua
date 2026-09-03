@@ -80,8 +80,7 @@ hl.bind("SUPER + V", hl.dsp.exec_cmd(nix.vicinae .. " vicinae://launch/clipboard
 
 hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd(nix.noctalia .. " msg bar-toggle"))
 hl.bind("SUPER + SHIFT + M", hl.dsp.exec_cmd(nix.noctalia .. " msg mic-mute"))
-hl.bind("switch:[Lid Switch]", hl.dsp.exec_cmd(nix.noctalia .. " msg session lock-and-suspend"),
-    { locked = true })
+-- hl.bind("switch:on:Lid Switch", hl.dsp.exec_cmd(nix.noctalia .. " msg session lock-and-suspend"), { locked = true }) -- managed by systemd-inhibit
 
 
 hl.bind("SUPER + M", hl.dsp.exit())
