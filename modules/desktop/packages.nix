@@ -22,7 +22,7 @@
 
       nautilus
       kdePackages.dolphin
-      simple-mtpfs
+      go-mtpfs
       zathura
       mpv
       vlc

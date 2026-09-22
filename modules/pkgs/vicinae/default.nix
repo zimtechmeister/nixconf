@@ -7,7 +7,6 @@
     nixIcon = pkgs.writeTextDir "share/vicinae/themes/icons/nix.svg" (
       builtins.readFile "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg"
     );
-    # TODO: add icon back in
     nixTheme = pkgs.writeTextDir "share/vicinae/themes/nixTheme.toml" ''
       [meta]
       version = 1
