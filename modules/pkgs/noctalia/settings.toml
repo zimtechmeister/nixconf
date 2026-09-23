@@ -3,7 +3,7 @@ order = [ "default", "r-spacer" ]
 
     [bar.default]
     center = [ "group:g2" ]
-    end = [ "privacy", "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
+    end = [ "privacy", "screenshot", "wallpaper", "volume", "group:g4", "group:g3", "tray", "notifications", "session" ]
     margin_ends = 100
     position = "left"
     start = [ "workspaces" ]
@@ -170,6 +170,10 @@ screen_time_enabled = true
     [shell.panel]
     polkit_placement = "attached"
 
+    [shell.screenshot]
+    annotate = true
+    skip_annotate_on_copy_save = true
+
 [theme]
 custom_palette = "nix"
 mode = "dark"
@@ -181,8 +185,11 @@ display_mode = "graphic"
 [widget.network]
 show_label = false
 
-[widget.privacy.actions]
-left = "mic-mute"
+[widget.privacy]
+enabled = false
+
+    [widget.privacy.actions]
+    left = "mic-mute"
 
 [widget.session]
 enabled = false
@@ -199,3 +206,6 @@ enabled = false
 
 [widget.wallpaper]
 enabled = false
+
+[widget.screenshot.actions]
+left = "screenshot-fullscreen"

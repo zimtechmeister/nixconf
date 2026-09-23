@@ -73,7 +73,7 @@ end
 
 hl.bind("SUPER + Return", hl.dsp.exec_cmd(nix.ghostty .. " +new-window"))
 
-hl.bind("SUPER + S", hl.dsp.exec_cmd(nix.screenshot))
+hl.bind("SUPER + S", hl.dsp.exec_cmd(nix.noctalia .. " msg screenshot-fullscreen"))
 
 hl.bind("SUPER + Space", hl.dsp.exec_cmd(nix.vicinae .. " toggle"))
 hl.bind("SUPER + V", hl.dsp.exec_cmd(nix.vicinae .. " vicinae://launch/clipboard/history"))

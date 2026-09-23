@@ -41,22 +41,13 @@
       }
     '';
 
-  nixLua = let
-    grim = lib.getExe pkgs.grim;
-    slurp = lib.getExe pkgs.slurp;
-    satty = lib.getExe pkgs.satty;
-    screenshot = pkgs.writeShellScript "screenshot" ''
-      ${grim} -cg "$(${slurp} -o -d -c '#00000000' -B '#88888888')" -t ppm - | ${satty} --filename - --output-filename $HOME/Pictures/screenshot-$(date '+%Y%m%d-%H:%M:%S').png
-    '';
-  in
-    pkgs.writeText "nix.lua" ''
-      return {
-        noctalia = "${lib.getExe noctalia}",
-        vicinae = "${lib.getExe vicinae}",
-        ghostty = "${lib.getExe ghostty}",
-        screenshot = "${screenshot}",
-      }
-    '';
+  nixLua = pkgs.writeText "nix.lua" ''
+    return {
+      noctalia = "${lib.getExe noctalia}",
+      vicinae = "${lib.getExe vicinae}",
+      ghostty = "${lib.getExe ghostty}",
+    }
+  '';
   # Create a directory for the config files
   configDir = pkgs.symlinkJoin {
     name = "hyprland-config";
@@ -79,7 +70,7 @@ in
     name = "hyprland";
     inherit (inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland) version;
     passthru = {
-      providedSessions = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland.providedSessions or [ "hyprland" ];
+      providedSessions = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland.providedSessions or ["hyprland"];
     };
     paths = [
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
