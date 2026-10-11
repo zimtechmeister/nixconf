@@ -29,7 +29,7 @@
       extraEntries = ''
         /Windows 11
         protocol: efi
-        path: boot():/EFI/Microsoft/Boot/bootmgfw.efi
+        path: fslabel(SYSTEM):/EFI/Microsoft/Boot/bootmgfw.efi
       '';
       secureBoot.autoEnrollKeys.extraArgs = [
         "--microsoft"
