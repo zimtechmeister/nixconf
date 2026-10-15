@@ -8,10 +8,10 @@
       if system == "x86_64-linux"
       then let
         pname = "helium";
-        version = "0.17.2.1";
+        version = "0.19.3.1";
         src = pkgs.fetchurl {
           url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-          sha256 = "sha256-DFyqK6nrjZhsc1OoduquJETeByVneWg6B18ybIYWk7Q=";
+          sha256 = "sha256-Rg5tKlyG0DkhYkItGyF6NmMb2DD40h5WUYyWAgl5eQY=";
         };
         appimageContents = pkgs.appimageTools.extract {inherit pname version src;};
       in {
