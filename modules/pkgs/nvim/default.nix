@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{...}: {
   perSystem = {
     pkgs,
     self',
@@ -7,7 +7,6 @@
   }: {
     packages.nvim = import ./_wrapper.nix {
       inherit pkgs;
-      inherit inputs;
     };
     apps.nvim = {
       type = "app";

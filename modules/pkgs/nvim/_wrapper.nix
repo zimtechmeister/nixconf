@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }: let
   # Define plugins and extra packages
@@ -101,7 +100,8 @@
 in
   pkgs.symlinkJoin {
     name = "nvim";
-    paths = [inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default] ++ extraPackages;
+    paths = [pkgs.neovim] ++ extraPackages;
+    # paths = [inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default] ++ extraPackages;
     meta.mainProgram = "nvim";
 
     nativeBuildInputs = [pkgs.makeWrapper];
