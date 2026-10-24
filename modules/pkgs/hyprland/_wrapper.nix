@@ -133,6 +133,6 @@ in
     '';
 
     meta = {
-      mainProgram = "start-hyprland";
+      mainProgram = "Hyprland";
     };
   }

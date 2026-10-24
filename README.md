@@ -116,8 +116,10 @@ nix flake update
 
 Update packages locked to a specific version (helium)
 ```bash
-cd /path/to/flake
 nix run nixpkgs#nix-update -- --flake helium
+
+# combination of both
+nix run /path/to/flake#update
 ```
 
 ## Garbage Collection

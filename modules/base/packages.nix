@@ -6,6 +6,7 @@
       wget
       self.packages.${pkgs.stdenv.hostPlatform.system}.nvim
       # self.packages.${pkgs.stdenv.hostPlatform.system}.starship
+      tuios
       vim
       helix
       jq
