@@ -17,7 +17,6 @@
       firefox
 
       discord
-      vesktop
       thunderbird
 
       nautilus

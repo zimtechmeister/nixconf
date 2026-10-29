@@ -1,12 +1,11 @@
 {
-  self,
-  pkgs,
-  ...
-}: {
   flake.nixosModules.mime = {
     xdg = {
       terminal-exec = {
-        package = self.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-wrapped;
+        enable = true;
+        settings = {
+          default = ["com.mitchellh.ghostty-wrapped.desktop"];
+        };
       };
       mime.defaultApplications = {
         "text/plain" = "nvim.desktop";
