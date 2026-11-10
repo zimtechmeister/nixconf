@@ -20,6 +20,9 @@
       self.nixosModules.bluetooth
       self.nixosModules.kanata
       self.nixosModules.notebook-power
+
+
+      self.nixosModules.virt-manager
     ];
 
     hardware.facter.reportPath = ./facter.json;

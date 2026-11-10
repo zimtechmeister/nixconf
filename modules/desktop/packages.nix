@@ -6,6 +6,8 @@
       cliphist
       wev
 
+      texliveMedium
+
       pkgs.ghostty
       self.packages.${pkgs.stdenv.hostPlatform.system}.ghostty-wrapped
 
