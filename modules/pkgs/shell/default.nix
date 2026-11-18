@@ -15,6 +15,7 @@
           zoxide
           superfile
           atuin
+          fishPlugins.bass
         ];
         shellAliases = {
           ls = "lsd -lhAg --group-dirs first --header";

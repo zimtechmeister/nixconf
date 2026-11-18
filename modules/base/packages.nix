@@ -40,6 +40,7 @@
 
       yt-dlp
       antigravity-cli
+      antigravity-hub
 
       # Languages
       openjdk25
